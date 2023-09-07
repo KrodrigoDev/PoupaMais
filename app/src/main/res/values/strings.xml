@@ -10,10 +10,22 @@
     <string name="receba_alertas_quando_quiser">Receba alertas quando quiser</string>
     <string name="saiba_para_onde_est_indo_seu_dinheiro">Saiba para onde está indo seu dinheiro</string>
     <string name="categorize_seus_lan_amentos_e_vendo_o_n_destino_de_cada_centavo">Categorize seus lançamentos e vendo o \n destino de cada centavo</string>
+
+    <!-- TEXTOS USADOS NA CRIAR CONTA E ENTRAR PARTE 1-->
     <string name="j_tenho_uma_conta">Já tenho uma conta</string>
     <string name="cadastre_se">CADASTRE-SE</string>
     <string name="planeje_sua_vida_financeira_e_saia_ndo_vermelho">Planeje sua vida financeira e saia \ndo vermelho</string>
     <string name="crie_sua_conta_gratuitamente">Crie Sua Conta Gratuitamente</string>
+
+    <!-- TEXTOS USADOS NA CRIAR CONTA E ENTRAR PARTE 2-->
+    <string name="crie_sua_conta_gr_tis">Crie sua conta grátis</string>
+    <string name="nome">Nome</string>
+    <string name="e_mail">E-mail</string>
+    <string name="senha">Senha</string>
+    <string name="cadastrar">CADASTRAR</string>
+    <string name="termos_de_uso">Termos de uso</string>
+    <string name="acesse_sua_conta">Acesse sua conta</string>
+    <string name="acessar">ACESSAR</string>
 
 
 </resources>

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
-
         VpaAdpter vpaAdpter = new VpaAdpter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         vpaAdpter.addFragments(new Informativo1(), "●");
         vpaAdpter.addFragments(new Informativo2(), "●");
@@ -35,4 +36,15 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(vpaAdpter);
 
     }
+
+    // métodos para abrir activitys
+
+    public void bntEntrarConta(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void bntCriarConta(View view) {
+        startActivity(new Intent(this, CadastroActivity.class));
+    }
+
 }
