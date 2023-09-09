@@ -5,7 +5,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--cores mais usadas no Poupa Mais-->
-    <color name="verdeEscuro">#117147</color>
+    <color name="verdeEscuro">#117147</color> <!-- Cor predominante do app -->
     <color name="pretoDestaque">#3A3A3A</color> <!-- usado em textos com mais destaque -->
     <color name="cinzaEscuro">#8F8F8F</color> <!-- usado em textos para com menos destaque -->
     <color name="cinzaClaro">#B9B9B9</color>

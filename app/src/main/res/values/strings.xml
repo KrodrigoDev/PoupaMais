@@ -27,5 +27,13 @@
     <string name="acesse_sua_conta">Acesse sua conta</string>
     <string name="acessar">ACESSAR</string>
 
+    <!-- TEXTOS USADOS NOS CAMPOS, CRIAÇÃO DO USUÁRIO E LOGIN -->
+    <string name="validar_campos">Preencha todos os campos</string>
+    <string name="confirmar_criacao_usuario">Usuário criado com sucesso</string>
+    <string name="senha_email_invalidos">Senha ou e-mail inválidos</string>
+
+    <!-- DESCRIÇÃO DO ICON VOLTAR -->
+    <string name="descricao_icone_voltar">Voltar</string>
+
 
 </resources>

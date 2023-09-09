@@ -1,8 +1,12 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <!-- Base application theme. -->
     <style name="Base.Theme.PoupaMais" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- Temas seguindo a pegada das cores principais -->
+       <item name="colorPrimary">@color/verdeEscuro</item>
+       <item name="colorAccent">@color/cinzaEscuro</item>
+
+
     </style>
 
     <style name="Theme.PoupaMais" parent="Base.Theme.PoupaMais" />

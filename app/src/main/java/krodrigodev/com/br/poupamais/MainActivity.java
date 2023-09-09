@@ -10,6 +10,11 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
+import krodrigodev.com.br.poupamais.view.Informativo1;
+import krodrigodev.com.br.poupamais.view.Informativo2;
+import krodrigodev.com.br.poupamais.view.Informativo3;
+import krodrigodev.com.br.poupamais.view.InformativoConta;
+
 public class MainActivity extends AppCompatActivity {
 
     // atributos

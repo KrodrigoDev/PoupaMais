@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".InformativoConta">
+    tools:context=".view.InformativoConta">
 
     <TextView
         android:id="@+id/textView5"
@@ -32,7 +32,7 @@
         android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="@color/verdeEscuro"
         android:onClick="bntCriarConta"
         android:text="@string/cadastre_se"
@@ -42,7 +42,8 @@
     <TextView
         android:id="@+id/textTenhoConta"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:onClick="bntEntrarConta"
         android:text="@string/j_tenho_uma_conta"
         android:textAlignment="center"
