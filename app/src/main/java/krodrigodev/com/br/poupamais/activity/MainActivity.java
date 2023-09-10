@@ -1,4 +1,4 @@
-package krodrigodev.com.br.poupamais;
+package krodrigodev.com.br.poupamais.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -10,10 +10,8 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
-import krodrigodev.com.br.poupamais.view.Informativo1;
-import krodrigodev.com.br.poupamais.view.Informativo2;
-import krodrigodev.com.br.poupamais.view.Informativo3;
-import krodrigodev.com.br.poupamais.view.InformativoConta;
+import krodrigodev.com.br.poupamais.R;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         tabLayout = findViewById(R.id.tabelaApresentacao);
         viewPager = findViewById(R.id.viewPager);
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // métodos para abrir activitys
+    // métodos para abrir activitys presentes em fragmentos
 
     public void bntEntrarConta(View view) {
         startActivity(new Intent(this, LoginActivity.class));

@@ -4,11 +4,11 @@
     <!-- TEXTOS USADOS NA PARTE DO SLIDE DE BOAS VINDAS -->
     <string name="slide_informativo">Slide Informativo</string>
     <string name="circulo_texto">●</string>
-    <string name="organize_suas_contas_de_onde_estiver">Organize suas contas de onde estiver</string>
+    <string name="organize_suas_contas_de_onde_estiver">Organize suas contas \n de onde estiver</string>
     <string name="simples_f_cil_de_usar_e_gr_tis">Simples, fácil de usar e grátis</string>
-    <string name="nunca_mais_esque_a_de_pagar_uma_conta">Nunca mais esqueça de pagar uma conta</string>
+    <string name="nunca_mais_esque_a_de_pagar_uma_conta">Nunca mais esqueça \n de pagar uma conta</string>
     <string name="receba_alertas_quando_quiser">Receba alertas quando quiser</string>
-    <string name="saiba_para_onde_est_indo_seu_dinheiro">Saiba para onde está indo seu dinheiro</string>
+    <string name="saiba_para_onde_est_indo_seu_dinheiro">Saiba para onde está indo \n seu dinheiro</string>
     <string name="categorize_seus_lan_amentos_e_vendo_o_n_destino_de_cada_centavo">Categorize seus lançamentos e vendo o \n destino de cada centavo</string>
 
     <!-- TEXTOS USADOS NA CRIAR CONTA E ENTRAR PARTE 1-->
@@ -31,9 +31,20 @@
     <string name="validar_campos">Preencha todos os campos</string>
     <string name="confirmar_criacao_usuario">Usuário criado com sucesso</string>
     <string name="senha_email_invalidos">Senha ou e-mail inválidos</string>
+    <string name="sucesso_login">Sucesso ao fazer login</string>
+    <string name="email_duplicado">Esse e-mail já foi cadastrado</string>
+    <string name="email_invalido">Digite um endereço de e-mail válido</string>
+    <string name="title_activity_principal">PrincipalActivity</string>
 
-    <!-- DESCRIÇÃO DO ICON VOLTAR -->
-    <string name="descricao_icone_voltar">Voltar</string>
 
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Teste
+    </string>
 
 </resources>

@@ -12,24 +12,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoupaMais"
         tools:targetApi="31">
+
         <activity
-            android:name=".Principal"
-            android:exported="false" />
+            android:name=".PrincipalActivity"
+            android:exported="false"
+            android:label="@string/title_activity_principal"
+            android:theme="@style/Theme.PoupaMais" />
+
         <activity
-            android:name=".CadastroActivity"
-            android:exported="false" />
+            android:name=".activity.CadastroActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
+            android:name=".activity.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".activity.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

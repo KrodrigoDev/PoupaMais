@@ -1,4 +1,4 @@
-package krodrigodev.com.br.poupamais;
+package krodrigodev.com.br.poupamais.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

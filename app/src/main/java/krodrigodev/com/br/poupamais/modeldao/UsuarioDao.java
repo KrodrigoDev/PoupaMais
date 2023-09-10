@@ -1,5 +1,6 @@
 package krodrigodev.com.br.poupamais.modeldao;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -46,8 +47,13 @@ public class UsuarioDao {
         Cursor cursor = banco.rawQuery("select * from usuario where email = ? and senha = ?", new String[]{email, senha});
 
         return cursor.getCount() > 0; // if else simplificado
-
     }
 
+    // método para verificar se o e-mail já está presente na basse de dados
+    public boolean validaEmail(String email) {
+        Cursor cursor = banco.rawQuery("select * from usuario where email = ?", new String[]{email});
+
+        return cursor.getCount() > 0;
+    }
 
 }

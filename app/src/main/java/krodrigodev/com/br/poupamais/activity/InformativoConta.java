@@ -1,4 +1,4 @@
-package krodrigodev.com.br.poupamais.view;
+package krodrigodev.com.br.poupamais.activity;
 
 import android.os.Bundle;
 

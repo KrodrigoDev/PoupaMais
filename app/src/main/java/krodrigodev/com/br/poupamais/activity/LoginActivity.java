@@ -1,4 +1,4 @@
-package krodrigodev.com.br.poupamais;
+package krodrigodev.com.br.poupamais.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import krodrigodev.com.br.poupamais.PrincipalActivity;
+import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.controller.EncriptaMD5;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
@@ -19,6 +22,8 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    private EditText email, senha;
+    private Button botaoAcessar;
     private UsuarioDao usuarioDao;
 
     @Override
@@ -29,16 +34,17 @@ public class LoginActivity extends AppCompatActivity {
         // Inicialize o objeto usuarioDao
         usuarioDao = new UsuarioDao(this);
 
-        // Acessando os campos presentes na tela
-        EditText email = findViewById(R.id.campoEmail);
-        EditText senha = findViewById(R.id.campoSenha);
-        Button botao = findViewById(R.id.bntAcessar);
+        email = findViewById(R.id.campoEmail);
+        senha = findViewById(R.id.campoSenha);
+        botaoAcessar = findViewById(R.id.bntAcessar);
 
         // Adicionando uma ação para o botão
-        botao.setOnClickListener(v -> {
+        botaoAcessar.setOnClickListener(v -> {
+
             String emailDigitado = email.getText().toString();
             String senhaDigitada = senha.getText().toString();
 
+            // validação para verificar se os campos estão vazios
             if (emailDigitado.isEmpty() || senhaDigitada.isEmpty()) {
 
                 Toast.makeText(LoginActivity.this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
@@ -62,9 +68,11 @@ public class LoginActivity extends AppCompatActivity {
 
             if (checarLogin) {
 
-                Toast.makeText(LoginActivity.this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Principal.class);
+                Toast.makeText(LoginActivity.this, R.string.sucesso_login, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                 startActivity(intent);
+                finish();
 
             } else {
 
@@ -73,7 +81,9 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         } catch (Exception erro) {
+
             Log.e("Erro", "Não foi possível recuperar a senha: " + erro);
+
         }
 
     }
