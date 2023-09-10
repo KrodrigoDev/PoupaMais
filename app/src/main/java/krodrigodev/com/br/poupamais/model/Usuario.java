@@ -41,7 +41,7 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getSenha() { // gambiarra
+    public String getSenha() {
         return senha;
     }
 
