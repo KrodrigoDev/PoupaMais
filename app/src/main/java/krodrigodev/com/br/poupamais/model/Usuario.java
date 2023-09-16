@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Kauã Rodrigo
  * @version 0.1
- * @since 08/09/2023
+ * @since 16/09/2023
  */
 public class Usuario implements Serializable {
 
@@ -14,15 +14,14 @@ public class Usuario implements Serializable {
     private String nome;
     private String email;
     private String senha;
+    private double totalLucro = 0.00; //inicializando uma conta com saldo 0.00
+    private double totalDespesa = 0.00;
+
 
     // gets e sets
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -49,4 +48,23 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getTotalLucro() {
+        return totalLucro;
+    }
+
+    public void setTotalLucro(double totalLucro) {
+        this.totalLucro = totalLucro;
+    }
+
+    public double getTotalDespesa() {
+        return totalDespesa;
+    }
+
+    public void setTotalDespesa(double totalDespesa) {
+        this.totalDespesa = totalDespesa;
+    }
 }

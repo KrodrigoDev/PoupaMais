@@ -10,10 +10,12 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:text="@string/crie_sua_conta_gr_tis"
         android:textColor="@color/pretoDestaque"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/campoNomeCadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
@@ -22,6 +24,7 @@
         android:id="@+id/campoNomeCadastro"
         android:layout_width="240dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="30dp"
         android:autofillHints="none"
         android:drawableStart="@drawable/usuario_icon_24"
         android:drawablePadding="5dp"
@@ -30,17 +33,16 @@
         android:hint="@string/nome"
         android:inputType="text"
         android:isScrollContainer="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/campoEmailCadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <EditText
         android:id="@+id/campoSenhaCadastro"
         android:layout_width="240dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:autofillHints="none"
         android:drawableStart="@drawable/cadeado_icon_lock_24"
         android:drawablePadding="5dp"
@@ -48,6 +50,7 @@
         android:gravity="start"
         android:hint="@string/senha"
         android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoEmailCadastro" />
@@ -56,7 +59,7 @@
         android:id="@+id/campoEmailCadastro"
         android:layout_width="240dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:autofillHints="none"
         android:drawableStart="@drawable/email_icon_24"
         android:drawablePadding="5dp"
@@ -64,8 +67,8 @@
         android:gravity="start"
         android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/campoSenhaCadastro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/campoNomeCadastro" />
 
@@ -73,15 +76,15 @@
         android:id="@+id/button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/verdeEscuro"
         android:onClick="salvarConta"
         android:text="@string/cadastrar"
         android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoSenhaCadastro"
-        app:layout_constraintVertical_bias="0.30" />
+        app:layout_constraintTop_toBottomOf="@+id/campoSenhaCadastro" />
 
     <TextView
         android:id="@+id/textView8"
@@ -93,8 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.10" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -102,11 +104,12 @@
         android:layout_height="100dp"
         android:contentDescription="@null"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.20"
+        app:layout_constraintVertical_bias="0.40"
+        app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/icon_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

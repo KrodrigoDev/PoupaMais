@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import krodrigodev.com.br.poupamais.conexao.BancoDados;
 import krodrigodev.com.br.poupamais.controller.EncriptaMD5;
+import krodrigodev.com.br.poupamais.helper.IdUsuarioLogado;
 import krodrigodev.com.br.poupamais.model.Usuario;
 
 /**
@@ -37,6 +38,9 @@ public class UsuarioDao {
         valores.put("nome", usuario.getNome());
         valores.put("email", usuario.getEmail());
         valores.put("senha", senhaCriptografada);
+        valores.put("totallucro", usuario.getTotalLucro());
+        valores.put("totaldespesa", usuario.getTotalDespesa());
+
 
         return banco.insert("usuario", null, valores);
     }
@@ -46,12 +50,27 @@ public class UsuarioDao {
     public boolean validaLogin(String email, String senha) {
         Cursor cursor = banco.rawQuery("select * from usuario where email = ? and senha = ?", new String[]{email, senha});
 
-        return cursor.getCount() > 0; // if else simplificado
+        if (cursor.getCount() > 0) {
+
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex("id");
+
+            if (columnIndex != -1) {
+
+                int idUsuario = cursor.getInt(columnIndex);
+                IdUsuarioLogado.setIdUsuarioLogado(idUsuario);
+                return true;
+
+            }
+
+        }
+
+        return false;
     }
 
     // método para verificar se o e-mail já está presente na basse de dados
-    public boolean validaEmail(String email) {
-        Cursor cursor = banco.rawQuery("select * from usuario where email = ?", new String[]{email});
+    public boolean validaEmailExitentes(String email) {
+        Cursor cursor = banco.rawQuery("select email from usuario where email = ?", new String[]{email});
 
         return cursor.getCount() > 0;
     }

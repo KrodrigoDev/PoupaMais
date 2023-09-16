@@ -26,11 +26,24 @@ public class BancoDados extends SQLiteOpenHelper {
     // método para criar tabelas do banco
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL("create table usuario(" +
                 "id Integer primary key autoincrement,"
                 + "nome varchar(30) not null,"
                 + "email varchar(50) unique not null,"
-                + "senha char(32) not null)");
+                + "senha char(32) not null,"
+                + "totallucro Real not null,"
+                + "totaldespesa Real not null)");
+
+        db.execSQL("create table movimentacao("
+                + "id Integer primary key autoincrement,"
+                + "data date not null,"
+                + "descricao varchar(20) not null,"
+                + "categoria varchar(20) not null,"
+                + "valor REAL not null,"
+                + "tipo varchar(7) not null check(tipo in ('lucro','despesa')),"
+                + "id_usuario Integer not null,"
+                + "foreign key(id_usuario) references usuario(id))");
     }
 
     // método para atualizar os registritos do banco

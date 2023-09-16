@@ -40,21 +40,21 @@
             android:id="@+id/lucros"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="addLucro"
             android:src="@drawable/icon_add_24"
-            fab:fab_label="LUCROS"
-            fab:fab_size="mini"
             fab:fab_colorNormal="@color/verdeLucro"
-            />
+            fab:fab_label="LUCROS"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/despesa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="addDespesa"
             android:src="@drawable/icon_add_24"
-            fab:fab_label="DESPESAS"
-            fab:fab_size="mini"
             fab:fab_colorNormal="@color/vermelhoDespesa"
-            />
+            fab:fab_label="DESPESAS"
+            fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

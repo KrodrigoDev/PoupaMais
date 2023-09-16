@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import krodrigodev.com.br.poupamais.R;
+import krodrigodev.com.br.poupamais.controller.ValidarEmail;
 import krodrigodev.com.br.poupamais.model.Usuario;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
@@ -23,8 +24,8 @@ public class CadastroActivity extends AppCompatActivity {
     // atributos
 
     private EditText nome, email, senha;
-
     private UsuarioDao usuarioDao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +54,21 @@ public class CadastroActivity extends AppCompatActivity {
 
         } else {
 
-            Usuario usuario = new Usuario();
-
-
             // Validar se o formato do e-mail é válido
-            if (!emailValido(emailDigitado)) {
+            if (!ValidarEmail.emailValido(emailDigitado)) {
 
                 Toast.makeText(this, R.string.email_invalido, Toast.LENGTH_SHORT).show();
 
             } else {
+
+                Usuario usuario = new Usuario();
 
                 usuario.setNome(nomeDigitado);
                 usuario.setEmail(emailDigitado);
                 usuario.setSenha(senhaDigitada);
 
                 // Validação para verificar se o e-mail já existe no banco
-                if (usuarioDao.validaEmail(usuario.getEmail())) {
+                if (usuarioDao.validaEmailExitentes(usuario.getEmail())) {
 
                     Toast.makeText(this, R.string.email_duplicado, Toast.LENGTH_SHORT).show();
 
@@ -90,27 +90,6 @@ public class CadastroActivity extends AppCompatActivity {
         }
 
     }
-
-    // Função para validar o formato do e-mail com Patterns.EMAIL_ADDRESS
-    public static boolean emailValido(CharSequence email) {
-
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-
-            // Verificar se o domínio é válido
-            String[] partesEmail = email.toString().split("@"); // dividindo o email em duas partes
-
-            if (partesEmail.length == 2) { // verifica se foi feita a divisão
-
-                String dominio = partesEmail[1];
-
-                return dominio.contains(".") && dominio.length() > 2; // Verificar se contém pelo menos um ponto e tem mais de 2 caracteres.
-
-            }
-
-        }
-        return false;
-    }
-
 
     public void limpaCampo() {
         nome.setText("");

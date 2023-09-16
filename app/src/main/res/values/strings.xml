@@ -36,15 +36,23 @@
     <string name="email_invalido">Digite um endereço de e-mail válido</string>
     <string name="title_activity_principal">PrincipalActivity</string>
 
-
-    <!-- Strings used for fragments for navigation -->
+    <!-- TEXTOS USADOS NA JANELA PRINCIPAL -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="lorem_ipsum">Teste</string>
 
-    <string name="lorem_ipsum">
-        Teste
-    </string>
+    <!-- TEXTOS USADOS NA JANELA DE LUCROS -->
+    <string name="voltar">Voltar</string>
+    <string name="data">Data</string>
+    <string name="categoria">Categoria</string>
+    <string name="descri_o">Descrição</string>
+    <string name="adicionar_despesa">Adicionar Despesa</string>
+    <string name="r_00_00">R$ 00.00</string>
+
+
+    <!-- TEXTOS USADOS NA CRIAÇÃO DA DESPESA -->
+    <string name="despesa_adicionada">Despesa adicionada com sucesso</string>
 
 </resources>

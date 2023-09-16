@@ -1,12 +1,25 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PoupaMais" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <!-- Temas seguindo a pegada das cores principais -->
+    <!--Tema principal do app-->
+    <style name="Base.Theme.PoupaMais" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/verdeEscuro</item>
         <item name="colorAccent">@color/cinzaEscuro</item>
+    </style>
 
+    <!-- Tema para a activity de lucros -->
+    <style name="Lucro.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/verdeLucro</item>
+        <item name="colorPrimaryDark">@color/verdeLucro</item>
+        <item name="colorAccent">@color/verdeLucro</item>
+    </style>
+
+    <!-- Tema para a activity de despesas -->
+    <style name="Despesa.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/vermelhoDespesa</item>
+        <item name="colorPrimaryDark">@color/vermelhoDespesa</item>
+        <item name="colorAccent">@color/vermelhoDespesa</item>
     </style>
 
     <style name="Theme.PoupaMais" parent="Base.Theme.PoupaMais" />
+
 </resources>
