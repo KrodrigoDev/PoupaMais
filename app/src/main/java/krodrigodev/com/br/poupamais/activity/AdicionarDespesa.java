@@ -14,17 +14,28 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;
+
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.helper.DataAtual;
 import krodrigodev.com.br.poupamais.helper.IdUsuarioLogado;
 import krodrigodev.com.br.poupamais.model.Movimentacao;
 import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
+import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
+/**
+ * @author Kauã Rodrigo
+ * @since 17/09/2023
+ */
 public class AdicionarDespesa extends AppCompatActivity {
 
+    // atributos
     private TextInputEditText campoData, campoDescricao, campoCategoria;
     private EditText campoValor;
     private MovimentacaoDao movimentacaoDao;
+    private double despesaTotal;
+    private UsuarioDao usuarioDao;
+    private final String TIPOMOVIMENTO = "despesa";
+    private final String NOMECOLUNA = "totaldespesa";
 
 
     @RequiresApi(api = Build.VERSION_CODES.O) //talvez procurar outra solução (DEPOIS)
@@ -33,18 +44,22 @@ public class AdicionarDespesa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_despesa);
 
-        // inicializando o mocimentoDAO
+        // inicializando o movimentoDAO e usuarioDao
         movimentacaoDao = new MovimentacaoDao(this);
+        usuarioDao = new UsuarioDao(this);
 
-        // fazendo referencias
+        // fazendo referências
         campoData = findViewById(R.id.campoDataDespesa);
         campoDescricao = findViewById(R.id.campoDescricaoDespesa);
         campoCategoria = findViewById(R.id.campoCategoriaDespesa);
         campoValor = findViewById(R.id.campoValorDespesa);
 
 
-        //fazendo a modificação no texto da data
+        //fazendo a modificação no texto da data para ao entrar puxar a data atual
         campoData.setText(DataAtual.getDataFormatada());
+
+        // fazendo a despesa ser recuperada antes que o usuário digite um novo valor
+        recuperandoDespesa();
     }
 
     // método para salvar uma despesa
@@ -57,38 +72,60 @@ public class AdicionarDespesa extends AppCompatActivity {
         String valor = campoValor.getText().toString();
 
         // validando de todos os campos foram preenchidos
-        if(data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()){
+        if (data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()) {
 
-            Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.validar_campos, Toast.LENGTH_SHORT).show();
 
         } else {
 
             Movimentacao movimentacao = new Movimentacao();
 
-            movimentacao.setData(LocalDate.parse(data,dataFormatada)); // melhorar isso depois
+            double despesaDigitada = Double.parseDouble(valor);
+
+            movimentacao.setData(LocalDate.parse(data, dataFormatada)); // melhorar isso depois
             movimentacao.setDescricao(descricao);
             movimentacao.setCategoria(categoria);
-            movimentacao.setValor(Double.parseDouble(valor));
-            movimentacao.setTipo("despesa");
+            movimentacao.setValor(despesaDigitada);
+            movimentacao.setTipo(TIPOMOVIMENTO);
             movimentacao.setId_usuario(IdUsuarioLogado.getIdUsuarioLogado());
 
+            // realizando a soma das despesas antes de salvar
+            double despesaAtualizada = despesaDigitada + despesaTotal;
+
+            // atualizando a despesa total da minha tabela usuário
+            atualizandoDespesa(despesaAtualizada);
+
+            // salvando
             movimentacaoDao.salvarMovimentacao(movimentacao);
 
+            // limpando os campos após salvar
             limpaCampo();
 
-            Toast.makeText(this, R.string.despesa_adicionada, Toast.LENGTH_SHORT).show();
+            // mensagem de confirmação para o usuário
+            Toast.makeText(getApplicationContext(), R.string.despesa_adicionada, Toast.LENGTH_SHORT).show();
+
+            // voltando para janela principal (Talvez sejá necessário alterar depois)
+            finish();
         }
 
     }
 
-    // método para limpar os campos
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void limpaCampo(){
-       campoData.setText(DataAtual.getDataFormatada());
-       campoCategoria.setText("");
-       campoDescricao.setText("");
-       campoValor.setText("");
+    // recuperando a despesa do usuário para realizar uma soma com a nova despesa adicionada
+    public void recuperandoDespesa() {
+        despesaTotal = usuarioDao.recuperarTotal(IdUsuarioLogado.getIdUsuarioLogado(), NOMECOLUNA);
     }
 
+    // método para atualizar a despesa total na conta do usuário
+    public void atualizandoDespesa(double despesa) {
+        usuarioDao.alterarDespesaTotal(IdUsuarioLogado.getIdUsuarioLogado(), despesa, NOMECOLUNA);
+    }
+
+    // método para limpar os campos
+    public void limpaCampo() {
+        campoData.setText("");
+        campoCategoria.setText("");
+        campoDescricao.setText("");
+        campoValor.setText("");
+    }
 
 }

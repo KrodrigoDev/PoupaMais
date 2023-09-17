@@ -34,7 +34,6 @@
     <string name="sucesso_login">Sucesso ao fazer login</string>
     <string name="email_duplicado">Esse e-mail já foi cadastrado</string>
     <string name="email_invalido">Digite um endereço de e-mail válido</string>
-    <string name="title_activity_principal">PrincipalActivity</string>
 
     <!-- TEXTOS USADOS NA JANELA PRINCIPAL -->
     <string name="first_fragment_label">First Fragment</string>
@@ -42,17 +41,21 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="lorem_ipsum">Teste</string>
+    <string name="title_activity_principal">PrincipalActivity</string>
 
-    <!-- TEXTOS USADOS NA JANELA DE LUCROS -->
+    <!-- TEXTOS USADOS NA JANELA DE LUCROS E DESPESA-->
     <string name="voltar">Voltar</string>
     <string name="data">Data</string>
     <string name="categoria">Categoria</string>
     <string name="descri_o">Descrição</string>
     <string name="adicionar_despesa">Adicionar Despesa</string>
     <string name="r_00_00">R$ 00.00</string>
+    <string name="adicionar_lucro">Adicionar Lucro</string>
 
 
-    <!-- TEXTOS USADOS NA CRIAÇÃO DA DESPESA -->
+    <!-- TEXTOS USADOS NA CRIAÇÃO DA DESPESA E LUCRO-->
     <string name="despesa_adicionada">Despesa adicionada com sucesso</string>
+    <string name="lucro_adicionado">Lucro adicionado com sucessso</string>
+
 
 </resources>

@@ -19,8 +19,8 @@ import krodrigodev.com.br.poupamais.model.Usuario;
 public class UsuarioDao {
 
     // atributos
-    private final BancoDados conexao;  // verificar depois se vai ser final ou não
-    private final SQLiteDatabase banco;
+    private BancoDados conexao;  // verificar depois se vai ser final ou não
+    private SQLiteDatabase banco;
 
     // método para realizar conexão
     public UsuarioDao(Context context) {
@@ -29,7 +29,7 @@ public class UsuarioDao {
     }
 
     // Método para inserir um usuário no banco de dados
-    public long inserirUsuario(Usuario usuario) {
+    public void inserirUsuario(Usuario usuario) {
 
         // Obtém a senha do usuário e a criptografa
         String senhaCriptografada = EncriptaMD5.encriptaSenha(usuario.getSenha());
@@ -42,24 +42,25 @@ public class UsuarioDao {
         valores.put("totaldespesa", usuario.getTotalDespesa());
 
 
-        return banco.insert("usuario", null, valores);
+        banco.insert("usuario", null, valores);
     }
 
 
     // método para realizar login
     public boolean validaLogin(String email, String senha) {
-        Cursor cursor = banco.rawQuery("select * from usuario where email = ? and senha = ?", new String[]{email, senha});
 
-        if (cursor.getCount() > 0) {
+        try (Cursor cursor = banco.rawQuery("select * from usuario where email = ? and senha = ?", new String[]{email, senha})) {
 
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex("id");
+            if (cursor.getCount() > 0) {
 
-            if (columnIndex != -1) {
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex("id");
 
-                int idUsuario = cursor.getInt(columnIndex);
-                IdUsuarioLogado.setIdUsuarioLogado(idUsuario);
-                return true;
+                if (columnIndex != -1) {
+                    int idUsuario = cursor.getInt(columnIndex);
+                    IdUsuarioLogado.setIdUsuarioLogado(idUsuario); //pegando o id do usuário após o login
+                    return true;
+                }
 
             }
 
@@ -70,9 +71,40 @@ public class UsuarioDao {
 
     // método para verificar se o e-mail já está presente na basse de dados
     public boolean validaEmailExitentes(String email) {
-        Cursor cursor = banco.rawQuery("select email from usuario where email = ?", new String[]{email});
-
-        return cursor.getCount() > 0;
+        try (Cursor cursor = banco.rawQuery("select email from usuario where email = ?", new String[]{email})) {
+            return cursor.getCount() > 0;
+        }
     }
+
+    // método para me retornar a despesa total e o lucro total salvos na conta do usuário
+    public double recuperarTotal(int id, String coluna) {
+        double total = 0.0;
+
+        Cursor cursor = banco.rawQuery("SELECT " + coluna + " FROM usuario WHERE id = ?", new String[]{String.valueOf(id)});
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(coluna);
+
+            if (columnIndex != -1) {
+                total = cursor.getDouble(columnIndex);
+            }
+        }
+
+        cursor.close(); // Certifique-se de fechar o cursor após usá-lo.
+
+        return total;
+    }
+
+    // método para atualizar a despesa total do meu usuário
+    public void alterarDespesaTotal(int id, double valorAtualizado, String coluna) {
+        ContentValues valores = new ContentValues();
+        valores.put(coluna, valorAtualizado);
+
+        // método update para atualizar os valores no banco de dados
+        banco.update("usuario", valores, "id = ?", new String[]{String.valueOf(id)});
+
+    }
+
 
 }

@@ -49,7 +49,9 @@ public class BancoDados extends SQLiteOpenHelper {
     // método para atualizar os registritos do banco
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS usuario");
+        db.execSQL("DROP TABLE IF EXISTS movimentacao");
+        onCreate(db);
     }
 
 

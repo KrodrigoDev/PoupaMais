@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
             // validação para verificar se os campos estão vazios
             if (emailDigitado.isEmpty() || senhaDigitada.isEmpty()) {
 
-                Toast.makeText(LoginActivity.this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.validar_campos, Toast.LENGTH_SHORT).show();
 
             } else {
 
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (checarLogin) {
 
-                Toast.makeText(LoginActivity.this, R.string.sucesso_login, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.sucesso_login, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                 startActivity(intent);
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
             } else {
 
-                Toast.makeText(LoginActivity.this, R.string.senha_email_invalidos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.senha_email_invalidos, Toast.LENGTH_SHORT).show();
 
             }
 

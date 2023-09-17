@@ -10,8 +10,8 @@ import krodrigodev.com.br.poupamais.model.Movimentacao;
 public class MovimentacaoDao {
 
     // atributos
-    private final BancoDados conexao;  // verificar depois se vai ser final ou não
-    private final SQLiteDatabase banco;
+    private BancoDados conexao;
+    private SQLiteDatabase banco;
 
     // método para realizar conexão
     public MovimentacaoDao(Context context) {
@@ -20,7 +20,7 @@ public class MovimentacaoDao {
     }
 
     // método para adicionar uma movimentação
-    public long salvarMovimentacao(Movimentacao movimentacao) {
+    public void salvarMovimentacao(Movimentacao movimentacao) {
 
         ContentValues valores = new ContentValues();
         valores.put("data", movimentacao.getData().toString());
@@ -30,7 +30,7 @@ public class MovimentacaoDao {
         valores.put("tipo", movimentacao.getTipo());
         valores.put("id_usuario", movimentacao.getId_usuario());
 
-        return banco.insert("movimentacao", null, valores);
+        banco.insert("movimentacao", null, valores);
 
     }
 
