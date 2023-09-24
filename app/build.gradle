@@ -41,10 +41,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    // (Não atualizar)
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
-    // dependecia de terceiros (deve ser trocada depois)
-    implementation 'com.github.clans:fab:1.6.4'
+    // dependecia de terceiros (devem ser trocada depois)
+    implementation 'com.github.clans:fab:1.6.4'  // fab
+    implementation "com.github.prolificinteractive:material-calendarview:1.6.0" // calendar
 
 }

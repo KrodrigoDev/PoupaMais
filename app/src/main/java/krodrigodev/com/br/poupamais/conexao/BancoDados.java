@@ -15,7 +15,7 @@ public class BancoDados extends SQLiteOpenHelper {
 
     // dados do meu banco
     public static final String bd = "banco.bd";
-    public static final int versao = 1;
+    public static final int versao = 2;
 
     // construtor do banco
     public BancoDados(@Nullable Context context) {

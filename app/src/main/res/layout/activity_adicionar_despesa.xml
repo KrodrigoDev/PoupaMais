@@ -62,7 +62,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/campoDataDespesa"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:inputType="datetime|date" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +83,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/campoCategoriaDespesa"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -102,7 +104,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/campoDescricaoDespesa"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

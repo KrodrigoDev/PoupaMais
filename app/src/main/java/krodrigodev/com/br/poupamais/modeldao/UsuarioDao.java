@@ -5,10 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import krodrigodev.com.br.poupamais.conexao.BancoDados;
 import krodrigodev.com.br.poupamais.controller.EncriptaMD5;
-import krodrigodev.com.br.poupamais.helper.IdUsuarioLogado;
+import krodrigodev.com.br.poupamais.helper.UsuarioLogado;
 import krodrigodev.com.br.poupamais.model.Usuario;
 
 /**
@@ -19,7 +20,7 @@ import krodrigodev.com.br.poupamais.model.Usuario;
 public class UsuarioDao {
 
     // atributos
-    private BancoDados conexao;  // verificar depois se vai ser final ou não
+    private BancoDados conexao;
     private SQLiteDatabase banco;
 
     // método para realizar conexão
@@ -49,17 +50,25 @@ public class UsuarioDao {
     // método para realizar login
     public boolean validaLogin(String email, String senha) {
 
-        try (Cursor cursor = banco.rawQuery("select * from usuario where email = ? and senha = ?", new String[]{email, senha})) {
-
+        try (Cursor cursor = banco.rawQuery("select id, nome from usuario where email = ? and senha = ?", new String[]{email, senha})) {
             if (cursor.getCount() > 0) {
 
                 cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex("id");
+                int idIndex = cursor.getColumnIndex("id");
+                int nomeIndex = cursor.getColumnIndex("nome");
 
-                if (columnIndex != -1) {
-                    int idUsuario = cursor.getInt(columnIndex);
-                    IdUsuarioLogado.setIdUsuarioLogado(idUsuario); //pegando o id do usuário após o login
+                if (idIndex != -1 || nomeIndex != -1) { // Verifica se a coluna "id" foi encontrada
+
+                    int idUsuario = cursor.getInt(idIndex);
+                    String nomeUsuario = cursor.getString(nomeIndex);
+
+                    Log.d("Nome usuário","Recuperado" + nomeUsuario);
+
+                    // pegando o id e o nome do usuário após o login
+                    UsuarioLogado.setNomeUsuarioLogado(nomeUsuario);
+                    UsuarioLogado.setIdUsuarioLogado(idUsuario);
                     return true;
+
                 }
 
             }
@@ -78,6 +87,7 @@ public class UsuarioDao {
 
     // método para me retornar a despesa total e o lucro total salvos na conta do usuário
     public double recuperarTotal(int id, String coluna) {
+
         double total = 0.0;
 
         Cursor cursor = banco.rawQuery("SELECT " + coluna + " FROM usuario WHERE id = ?", new String[]{String.valueOf(id)});
@@ -91,7 +101,7 @@ public class UsuarioDao {
             }
         }
 
-        cursor.close(); // Certifique-se de fechar o cursor após usá-lo.
+        cursor.close();
 
         return total;
     }
@@ -101,7 +111,6 @@ public class UsuarioDao {
         ContentValues valores = new ContentValues();
         valores.put(coluna, valorAtualizado);
 
-        // método update para atualizar os valores no banco de dados
         banco.update("usuario", valores, "id = ?", new String[]{String.valueOf(id)});
 
     }

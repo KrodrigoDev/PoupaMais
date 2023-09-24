@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.helper.DataAtual;
-import krodrigodev.com.br.poupamais.helper.IdUsuarioLogado;
+import krodrigodev.com.br.poupamais.helper.UsuarioLogado;
 import krodrigodev.com.br.poupamais.model.Movimentacao;
 import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
@@ -87,7 +87,7 @@ public class AdicionarLucro extends AppCompatActivity {
             movimentacao.setCategoria(categoria);
             movimentacao.setValor(lucroDigitado);
             movimentacao.setTipo(TIPOMOVIMENTO);
-            movimentacao.setId_usuario(IdUsuarioLogado.getIdUsuarioLogado());
+            movimentacao.setId_usuario(UsuarioLogado.getIdUsuarioLogado());
 
             // realizando a soma das despesas antes de salvar
             double lucroAtualizado = lucroDigitado + lucroTotal;
@@ -111,12 +111,12 @@ public class AdicionarLucro extends AppCompatActivity {
 
     // recuperando o lucro do usuário para realizar uma soma quando um novo lucro for adicionado
     public void recuperandoLucro(){
-        lucroTotal = usuarioDao.recuperarTotal(IdUsuarioLogado.getIdUsuarioLogado(),NOMECOLUNA);
+        lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getIdUsuarioLogado(),NOMECOLUNA);
     }
 
     // método para atualizar a despesa total na conta do usuário
     public void atualizandoLucro(double lucro){
-        usuarioDao.alterarDespesaTotal(IdUsuarioLogado.getIdUsuarioLogado(), lucro,NOMECOLUNA);
+        usuarioDao.alterarDespesaTotal(UsuarioLogado.getIdUsuarioLogado(), lucro,NOMECOLUNA);
     }
 
     // método para limpar os campos

@@ -1,22 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".PrincipalActivity">
+    tools:context=".activity.PrincipalActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iconMenu"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/icon_do_menu"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_menu_24" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/poupa_mais"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_logo" />
+
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -27,22 +63,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="10dp"
-        fab:menu_icon="@drawable/icon_add_24"
         app:menu_colorNormal="@color/verdeEscuro"
         app:menu_colorPressed="@color/verdeEscuro"
-
-        fab:menu_labels_colorPressed="@color/cinzaClaro"
-        fab:menu_labels_colorRipple="@color/cinzaClaro"
-        fab:menu_labels_textColor="@color/pretoDestaque"
-        fab:menu_labels_colorNormal="@color/cinzaClaro">
+        fab:menu_icon="@drawable/icon_add_24">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/lucros"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="addLucro"
+            android:onClick="abrirJanelaLucro"
             android:src="@drawable/icon_add_24"
             fab:fab_colorNormal="@color/verdeLucro"
+            fab:fab_colorPressed="@color/cinzaClaro"
             fab:fab_label="LUCROS"
             fab:fab_size="mini" />
 
@@ -50,9 +82,10 @@
             android:id="@+id/despesa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="addDespesa"
+            android:onClick="abrirJanelaDespesa"
             android:src="@drawable/icon_add_24"
             fab:fab_colorNormal="@color/vermelhoDespesa"
+            fab:fab_colorPressed="@color/cinzaClaro"
             fab:fab_label="DESPESAS"
             fab:fab_size="mini" />
 

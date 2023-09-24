@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-import krodrigodev.com.br.poupamais.PrincipalActivity;
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.controller.EncriptaMD5;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
@@ -23,7 +22,6 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText email, senha;
-    private Button botaoAcessar;
     private UsuarioDao usuarioDao;
 
     @Override
@@ -36,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         email = findViewById(R.id.campoEmail);
         senha = findViewById(R.id.campoSenha);
-        botaoAcessar = findViewById(R.id.bntAcessar);
+        Button botaoAcessar = findViewById(R.id.bntAcessar);
 
         // Adicionando uma ação para o botão
         botaoAcessar.setOnClickListener(v -> {
