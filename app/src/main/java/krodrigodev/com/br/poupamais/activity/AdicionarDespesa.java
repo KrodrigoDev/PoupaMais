@@ -102,7 +102,7 @@ public class AdicionarDespesa extends AppCompatActivity {
             limpaCampo();
 
             // mensagem de confirmação para o usuário
-            Toast.makeText(getApplicationContext(), R.string.despesa_adicionada, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.despesa_adicionada, Toast.LENGTH_SHORT).show();
 
             // voltando para janela principal (Talvez sejá necessário alterar depois)
             finish();
@@ -118,6 +118,11 @@ public class AdicionarDespesa extends AppCompatActivity {
     // método para atualizar a despesa total na conta do usuário
     public void atualizandoDespesa(double despesa) {
         usuarioDao.alterarDespesaTotal(UsuarioLogado.getIdUsuarioLogado(), despesa, NOMECOLUNA);
+    }
+
+    // método para finalizar a activity e voltar para a principal
+    public void voltarD(View view){
+        finish();
     }
 
     // método para limpar os campos

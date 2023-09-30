@@ -44,6 +44,7 @@
     <string name="title_activity_principal">PrincipalActivity</string>
     <string name="poupa_mais">POUPA MAIS</string>
     <string name="icon_do_menu">Icon do menu</string>
+    <string name="valor">Valor</string>
     <string-array name="meses">
         <item>Janeiro</item>
         <item>Fevereiro</item>

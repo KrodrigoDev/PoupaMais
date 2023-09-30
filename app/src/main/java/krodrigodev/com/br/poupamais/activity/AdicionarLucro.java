@@ -74,7 +74,7 @@ public class AdicionarLucro extends AppCompatActivity {
         // validando de todos os campos foram preenchidos
         if(data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()){
 
-            Toast.makeText(getApplicationContext(), R.string.validar_campos, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
 
         } else {
 
@@ -102,7 +102,7 @@ public class AdicionarLucro extends AppCompatActivity {
             limpaCampo();
 
             // mensagem de confirmação para o usuário
-            Toast.makeText(getApplicationContext(), R.string.lucro_adicionado, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.lucro_adicionado, Toast.LENGTH_SHORT).show();
 
             // voltando para janela principal (Talvez sejá necessário alterar depois)
             finish();
@@ -117,6 +117,11 @@ public class AdicionarLucro extends AppCompatActivity {
     // método para atualizar a despesa total na conta do usuário
     public void atualizandoLucro(double lucro){
         usuarioDao.alterarDespesaTotal(UsuarioLogado.getIdUsuarioLogado(), lucro,NOMECOLUNA);
+    }
+
+    // método para finalizar a activity e voltar para a principal
+    public void voltarL(View view){
+        finish();
     }
 
     // método para limpar os campos

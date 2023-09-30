@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             // validação para verificar se os campos estão vazios
             if (emailDigitado.isEmpty() || senhaDigitada.isEmpty()) {
 
-                Toast.makeText(getApplicationContext(), R.string.validar_campos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
 
             } else {
 
@@ -66,15 +66,20 @@ public class LoginActivity extends AppCompatActivity {
 
             if (checarLogin) {
 
-                Toast.makeText(getApplicationContext(), R.string.sucesso_login, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.sucesso_login, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+
+                // Definir as flags da Intent para iniciar como uma nova tarefa e limpar a pilha de atividades
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                 startActivity(intent);
                 finish();
 
+
             } else {
 
-                Toast.makeText(getApplicationContext(), R.string.senha_email_invalidos, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.senha_email_invalidos, Toast.LENGTH_SHORT).show();
 
             }
 

@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import krodrigodev.com.br.poupamais.conexao.BancoDados;
 import krodrigodev.com.br.poupamais.controller.EncriptaMD5;
@@ -61,8 +60,6 @@ public class UsuarioDao {
 
                     int idUsuario = cursor.getInt(idIndex);
                     String nomeUsuario = cursor.getString(nomeIndex);
-
-                    Log.d("Nome usuário","Recuperado" + nomeUsuario);
 
                     // pegando o id e o nome do usuário após o login
                     UsuarioLogado.setNomeUsuarioLogado(nomeUsuario);

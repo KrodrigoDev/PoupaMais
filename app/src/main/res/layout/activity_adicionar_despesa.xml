@@ -22,6 +22,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/voltar"
+            android:onClick="voltarD"
             android:src="@drawable/icon_voltar_esquerda_24" />
 
         <EditText
