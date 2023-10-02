@@ -30,5 +30,6 @@ Clique [aqui](https://www.figma.com/file/RM77cPzriC9UrINLgWxLQ8/Poupa-Mais?type=
 | Notificações                               |                                              
 | Gerenciamento de Dependências com Gradle   |   
 | Paginação e Localização                    |
+| Consumir dados de uma api                  |
 
 </div>
