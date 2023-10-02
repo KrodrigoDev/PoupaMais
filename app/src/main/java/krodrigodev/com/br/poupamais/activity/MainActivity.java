@@ -40,17 +40,6 @@ public class MainActivity extends AppCompatActivity {
         vpaAdpter.addFragments(new InformativoConta(), "●");
         viewPager.setAdapter(vpaAdpter);
 
-        // inicialização api do google (caso o usuário faça login com o google)
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-        // Verifica se o usuário está logado com a conta do Google e prossegue para a tela principal
-        if (account != null) {
-            abrirTelaPrincipal();
-        }
-
     }
 
     // métodos para abrir activitys presentes em fragmentos
@@ -61,13 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void bntCriarConta(View view) {
         startActivity(new Intent(this, CadastroActivity.class));
-    }
-
-    // método para navegar direto para janela principal caso o usuário tenha feito login com o google
-    private void abrirTelaPrincipal() {
-        Intent intent = new Intent(this, PrincipalActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 }

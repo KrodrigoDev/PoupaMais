@@ -34,6 +34,9 @@
     <string name="sucesso_login">Sucesso ao fazer login</string>
     <string name="email_duplicado">Esse e-mail já foi cadastrado</string>
     <string name="email_invalido">Digite um endereço de e-mail válido</string>
+    <string name="acessar_por_meio_de">Acessar por meio de</string>
+    <string name="entrar_com_google">Entrar com google</string>
+    <string name="esqueceu_a_senha">Esqueceu a senha ?</string>
 
     <!-- TEXTOS USADOS NA JANELA PRINCIPAL -->
     <string name="first_fragment_label">First Fragment</string>
