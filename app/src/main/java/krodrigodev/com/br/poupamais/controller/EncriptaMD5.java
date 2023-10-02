@@ -2,7 +2,7 @@ package krodrigodev.com.br.poupamais.controller;
 
 import android.util.Log;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -14,7 +14,7 @@ public class EncriptaMD5 {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
 
             // Converte a senha em bytes
-            byte[] senhaBytes = senha.getBytes("UTF-8");
+            byte[] senhaBytes = senha.getBytes(StandardCharsets.UTF_8);
 
             // Atualiza o MessageDigest com os dados (senha)
             md5.update(senhaBytes);
@@ -31,7 +31,7 @@ public class EncriptaMD5 {
             // Retorna a senha criptografada como string hexadecimal
             return senhaCriptografada.toString();
 
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException erro) {
+        } catch (NoSuchAlgorithmException erro) {
 
             Log.e("Erro", "Não foi possível criptografar a senha: " + erro);
             return null;

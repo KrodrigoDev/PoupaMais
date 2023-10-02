@@ -13,19 +13,15 @@ import krodrigodev.com.br.poupamais.controller.ValidarEmail;
 import krodrigodev.com.br.poupamais.model.Usuario;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
-
 /**
  * @author Kauã Rodrigo
- * @version 0.1
  * @since 08/09/2023
  */
 public class CadastroActivity extends AppCompatActivity {
 
-    // atributos
-
+    // Atributos
     private EditText nome, email, senha;
     private UsuarioDao usuarioDao;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +33,9 @@ public class CadastroActivity extends AppCompatActivity {
         senha = findViewById(R.id.campoSenhaCadastro);
 
         usuarioDao = new UsuarioDao(this);
-
     }
 
-    // método para salvar conta
+    // Método para salvar uma conta de usuário
     public void salvarConta(View view) {
 
         String nomeDigitado = nome.getText().toString();
@@ -62,7 +57,6 @@ public class CadastroActivity extends AppCompatActivity {
             } else {
 
                 Usuario usuario = new Usuario();
-
                 usuario.setNome(nomeDigitado);
                 usuario.setEmail(emailDigitado);
                 usuario.setSenha(senhaDigitada);
@@ -74,28 +68,24 @@ public class CadastroActivity extends AppCompatActivity {
 
                 } else {
 
-                    usuarioDao.inserirUsuario(usuario); // se todos as validações estiverem ok, vai criar uma conta
-
-                    limpaCampo();
+                    usuarioDao.inserirUsuario(usuario); // Se todas as validações estiverem ok, cria uma conta
+                    limpaCampos();
 
                     Toast.makeText(this, R.string.confirmar_criacao_usuario, Toast.LENGTH_SHORT).show();
 
+                    finish();
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
-                    finish();
 
                 }
-
             }
         }
-
     }
 
-    public void limpaCampo() {
+    // Método para limpar os campos de entrada de dados
+    public void limpaCampos() {
         nome.setText("");
         email.setText("");
         senha.setText("");
     }
-
-
 }

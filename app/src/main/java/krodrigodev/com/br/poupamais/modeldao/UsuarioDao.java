@@ -124,7 +124,7 @@ public class UsuarioDao {
     }
 
     // método para inserir um usuário que fez login com o google
-    public void inserirUsuarioComIdGoogle(String nome, String email) {
+    public void inserirUsuarioGoogle(String nome, String email) {
 
         ContentValues valores = new ContentValues();
 

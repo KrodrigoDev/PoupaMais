@@ -31,12 +31,11 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
 /**
  * @author Kauã Rodrigo
- * @version 0.1
- * @since 30/09/2023
+ * @since 02/10/2023
  */
 public class PrincipalActivity extends AppCompatActivity {
 
-    // atributos
+    // Atributos
     private MaterialCalendarView calendario;
     private TextView saudacaoUsuario, saldoTotal;
     private UsuarioDao usuarioDao;
@@ -51,40 +50,38 @@ public class PrincipalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_principal);
 
-        // inicializando o usuarioDAO
+        // Inicializando o usuarioDao e o movimentacaoDao
         usuarioDao = new UsuarioDao(this);
         movimentacaoDao = new MovimentacaoDao(this);
 
-        // inicializando
+        // Inicializando os elementos da interface
         calendario = findViewById(R.id.calendario);
         saudacaoUsuario = findViewById(R.id.textSaudacaoUsuario);
         saldoTotal = findViewById(R.id.textValorTotal);
         listaMovimento = findViewById(R.id.listaMovimentos);
 
-        // inicialização api do google (caso o usuário faça login com o google)
+        // Inicialização da API do Google (caso o usuário faça login com o Google)
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
 
         account = GoogleSignIn.getLastSignedInAccount(this);
 
-        // configurações do adpter
+        // Configurações do adaptador
         adpterMovimentacoes = new AdpterMovimentacoes(movimentacoes, this);
 
-        // configuraçõs do recyclerView
+        // Configurações do RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         listaMovimento.setLayoutManager(layoutManager);
         listaMovimento.setHasFixedSize(true);
         listaMovimento.setAdapter(adpterMovimentacoes);
 
-        // inicializando o método ao entrar na tela
+        // Inicializando o método ao entrar na tela
         configuracaoCalendario();
-
     }
 
-    // método para atualizar os valores quando eu voltar para activity (precriso melhorar isso)
+    // Método para atualizar os valores quando eu voltar para activity (preciso melhorar isso)
     @Override
     protected void onResume() {
         super.onResume();
@@ -92,11 +89,11 @@ public class PrincipalActivity extends AppCompatActivity {
         recuperarMovimentacoes();
     }
 
-    // método para recuperar as movimentações
+    // Método para recuperar as movimentações
     public void recuperarMovimentacoes() {
-
         String emailUsario;
 
+        // verificando se é um usuário local ou do google
         if (account != null) {
             emailUsario = account.getEmail();
         } else {
@@ -110,40 +107,38 @@ public class PrincipalActivity extends AppCompatActivity {
         adpterMovimentacoes.atualizarMovimentacoes(movimentacoes);
     }
 
-
-    // método para configurar o calendário
+    // Método para configurar o calendário
     public void configuracaoCalendario() {
 
-        // ajustando o título dos meses
-        calendario.setTitleMonths(getResources().getStringArray(R.array.meses)); // passando o array de meses
+        // Ajustando o título dos meses
+        calendario.setTitleMonths(getResources().getStringArray(R.array.meses)); // Passando o array de meses
 
-        // ajustando o limite e o máximo
+        // Ajustando o limite e o máximo
         calendario.state().edit()
                 .setMinimumDate(CalendarDay.from(2023, 9, 30))
                 .setMaximumDate(CalendarDay.from(2026, 12, 31))
                 .commit();
 
-
-        // formato que vai ser usado para filtrar no banco de dados
+        // Formato que vai ser usado para filtrar no banco de dados
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 
-        // mês ano selecionados ao entrar no app
+        // Mês e ano selecionados ao entrar no app
         CalendarDay dataAtual = calendario.getCurrentDate();
         mesAnoSelecionado = sdf.format(dataAtual.getDate());
 
-        // ouvinte
+        // Ouvinte
         calendario.setOnMonthChangedListener((widget, date) -> {
 
             mesAnoSelecionado = sdf.format(date.getDate());
 
-            // recuperando as movimentações novamente quando o usuário clicar no calendário
+            // Recuperando as movimentações novamente quando o usuário clicar no calendário
             recuperarMovimentacoes();
 
         });
 
     }
 
-    // método para recuperar o saldo total e o nome do usuário
+    // Método para recuperar o saldo total e o nome do usuário
     @SuppressLint("SetTextI18n")
     public void recuperarDados() {
 
@@ -154,18 +149,22 @@ public class PrincipalActivity extends AppCompatActivity {
         double lucroTotal;
         double despesaTotal;
 
-        // verificicando se é um usuário local ou com a conta do google
+        // Verificando se é um usuário local ou com a conta do Google
         if (account != null) {
+
             nomeUsuario = account.getDisplayName();
             lucroTotal = usuarioDao.recuperarTotal(account.getEmail(), COLUNALUCRO);
             despesaTotal = usuarioDao.recuperarTotal(account.getEmail(), COLUNADESPESA);
+
         } else {
+
             nomeUsuario = UsuarioLogado.getNomeUsuarioLogado();
             lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
             despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
+
         }
 
-        // aplicando alterações na view com os dados obtidos
+        // Aplicando alterações na view com os dados obtidos
         double totalUsuario = lucroTotal - despesaTotal;
 
         DecimalFormat formato = new DecimalFormat("0.##");
@@ -173,15 +172,19 @@ public class PrincipalActivity extends AppCompatActivity {
         saldoTotal.setText("R$ " + formato.format(totalUsuario));
 
         saudacaoUsuario.setText("Olá, " + nomeUsuario);
+
     }
 
-    // métodos de navegação
+    // Métodos de navegação
 
     public void abrirJanelaLucro(View view) {
-        startActivity(new Intent(this, AdicionarLucro.class));
+        Intent intent = new Intent(PrincipalActivity.this, AdicionarLucro.class);
+        startActivity(intent);
     }
 
     public void abrirJanelaDespesa(View view) {
-        startActivity(new Intent(this, AdicionarDespesa.class));
+        Intent intent = new Intent(PrincipalActivity.this, AdicionarDespesa.class);
+        startActivity(intent);
     }
+
 }
