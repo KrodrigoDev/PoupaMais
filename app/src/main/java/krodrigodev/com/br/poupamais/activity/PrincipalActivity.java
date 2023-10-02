@@ -4,14 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -43,6 +45,8 @@ public class PrincipalActivity extends AppCompatActivity {
     private List<Movimentacao> movimentacoes = new ArrayList<>();
     private String mesAnoSelecionado;
     private AdpterMovimentacoes adpterMovimentacoes;
+    private GoogleSignInOptions gso;
+    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,12 @@ public class PrincipalActivity extends AppCompatActivity {
         saldoTotal = findViewById(R.id.textValorTotal);
         listaMovimento = findViewById(R.id.listaMovimentos);
 
+        // inicialização api do google (caso o usuário faça login com o google)
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
+
+        account = GoogleSignIn.getLastSignedInAccount(this);
+
         // configurações do adpter
         adpterMovimentacoes = new AdpterMovimentacoes(movimentacoes, this);
 
@@ -67,7 +77,6 @@ public class PrincipalActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         listaMovimento.setLayoutManager(layoutManager);
         listaMovimento.setHasFixedSize(true);
-        listaMovimento.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         listaMovimento.setAdapter(adpterMovimentacoes);
 
         // inicializando o método ao entrar na tela
@@ -85,7 +94,19 @@ public class PrincipalActivity extends AppCompatActivity {
 
     // método para recuperar as movimentações
     public void recuperarMovimentacoes() {
-        movimentacoes = movimentacaoDao.recuperarMovimentacaoMes(mesAnoSelecionado, UsuarioLogado.getIdUsuarioLogado());
+
+        String emailUsario;
+
+        if (account != null) {
+            emailUsario = account.getEmail();
+        } else {
+            emailUsario = UsuarioLogado.getEmail();
+        }
+
+        // Recupera as movimentações com base no e-mail do usuário
+        movimentacoes = movimentacaoDao.recuperarMovimentacaoMes(mesAnoSelecionado, emailUsario);
+
+        // Atualiza o adaptador com as movimentações recuperadas
         adpterMovimentacoes.atualizarMovimentacoes(movimentacoes);
     }
 
@@ -98,7 +119,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
         // ajustando o limite e o máximo
         calendario.state().edit()
-                .setMinimumDate(CalendarDay.from(2023, 8, 17))
+                .setMinimumDate(CalendarDay.from(2023, 9, 30))
                 .setMaximumDate(CalendarDay.from(2026, 12, 31))
                 .commit();
 
@@ -126,21 +147,32 @@ public class PrincipalActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void recuperarDados() {
 
-        // recuperando o saldo total do usuário
+        // Atributos locais
         String COLUNALUCRO = "totallucro";
         String COLUNADESPESA = "totaldespesa";
+        String nomeUsuario;
+        double lucroTotal;
+        double despesaTotal;
 
-        double lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getIdUsuarioLogado(), COLUNALUCRO);
-        double despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getIdUsuarioLogado(), COLUNADESPESA);
+        // verificicando se é um usuário local ou com a conta do google
+        if (account != null) {
+            nomeUsuario = account.getDisplayName();
+            lucroTotal = usuarioDao.recuperarTotal(account.getEmail(), COLUNALUCRO);
+            despesaTotal = usuarioDao.recuperarTotal(account.getEmail(), COLUNADESPESA);
+        } else {
+            nomeUsuario = UsuarioLogado.getNomeUsuarioLogado();
+            lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
+            despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
+        }
+
+        // aplicando alterações na view com os dados obtidos
         double totalUsuario = lucroTotal - despesaTotal;
 
         DecimalFormat formato = new DecimalFormat("0.##");
 
         saldoTotal.setText("R$ " + formato.format(totalUsuario));
 
-        // recuperando o nome do usuário
-
-        saudacaoUsuario.setText("Olá, " + UsuarioLogado.getNomeUsuarioLogado());
+        saudacaoUsuario.setText("Olá, " + nomeUsuario);
     }
 
     // métodos de navegação

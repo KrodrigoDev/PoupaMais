@@ -9,13 +9,13 @@ import androidx.annotation.Nullable;
 /**
  * @author Kauã Rodrigo
  * @version 0.1
- * @since 08/09/2023
+ * @since 01/10/2023
  */
 public class BancoDados extends SQLiteOpenHelper {
 
     // dados do meu banco
     public static final String bd = "banco.bd";
-    public static final int versao = 2;
+    public static final int versao = 7;
 
     // construtor do banco
     public BancoDados(@Nullable Context context) {
@@ -31,9 +31,9 @@ public class BancoDados extends SQLiteOpenHelper {
                 "id Integer primary key autoincrement,"
                 + "nome varchar(30) not null,"
                 + "email varchar(50) unique not null,"
-                + "senha char(32) not null,"
-                + "totallucro Real not null,"
-                + "totaldespesa Real not null)");
+                + "senha char(32)," // retirei o not null para realizar um teste
+                + "totallucro Real default 0.00,"
+                + "totaldespesa Real default 0.00)");
 
         db.execSQL("create table movimentacao("
                 + "id Integer primary key autoincrement,"
@@ -42,8 +42,8 @@ public class BancoDados extends SQLiteOpenHelper {
                 + "categoria varchar(20) not null,"
                 + "valor REAL not null,"
                 + "tipo varchar(7) not null check(tipo in ('lucro','despesa')),"
-                + "id_usuario Integer not null,"
-                + "foreign key(id_usuario) references usuario(id))");
+                + "email_Usuario varchar(50),"
+                + "foreign key(email_Usuario) references usuario(email))");
     }
 
     // método para atualizar os registritos do banco
@@ -53,6 +53,5 @@ public class BancoDados extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS movimentacao");
         onCreate(db);
     }
-
 
 }

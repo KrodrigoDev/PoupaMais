@@ -49,21 +49,23 @@ public class UsuarioDao {
     // método para realizar login
     public boolean validaLogin(String email, String senha) {
 
-        try (Cursor cursor = banco.rawQuery("select id, nome from usuario where email = ? and senha = ?", new String[]{email, senha})) {
+        try (Cursor cursor = banco.rawQuery("select email, nome from usuario where email = ? and senha = ?", new String[]{email, senha})) {
+
             if (cursor.getCount() > 0) {
 
                 cursor.moveToFirst();
-                int idIndex = cursor.getColumnIndex("id");
+                int emailIndex = cursor.getColumnIndex("email");
                 int nomeIndex = cursor.getColumnIndex("nome");
 
-                if (idIndex != -1 || nomeIndex != -1) { // Verifica se a coluna "id" foi encontrada
+                if (emailIndex != -1) { // Verifica se a coluna "email" foi encontrada
 
-                    int idUsuario = cursor.getInt(idIndex);
+                    String emailUsuario = cursor.getString(emailIndex);
                     String nomeUsuario = cursor.getString(nomeIndex);
 
-                    // pegando o id e o nome do usuário após o login
+                    // pegando o email do usuário após o login
+                    UsuarioLogado.setEmail(emailUsuario);
                     UsuarioLogado.setNomeUsuarioLogado(nomeUsuario);
-                    UsuarioLogado.setIdUsuarioLogado(idUsuario);
+
                     return true;
 
                 }
@@ -77,38 +79,59 @@ public class UsuarioDao {
 
     // método para verificar se o e-mail já está presente na basse de dados
     public boolean validaEmailExitentes(String email) {
+
         try (Cursor cursor = banco.rawQuery("select email from usuario where email = ?", new String[]{email})) {
+
             return cursor.getCount() > 0;
+
         }
+
     }
 
     // método para me retornar a despesa total e o lucro total salvos na conta do usuário
-    public double recuperarTotal(int id, String coluna) {
+    public double recuperarTotal(String email, String coluna) {
 
         double total = 0.0;
 
-        Cursor cursor = banco.rawQuery("SELECT " + coluna + " FROM usuario WHERE id = ?", new String[]{String.valueOf(id)});
+        Cursor cursor = banco.rawQuery("SELECT " + coluna + " FROM usuario WHERE email = ?", new String[]{email});
 
         if (cursor.getCount() > 0) {
+
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(coluna);
 
             if (columnIndex != -1) {
                 total = cursor.getDouble(columnIndex);
             }
+
         }
 
         cursor.close();
 
         return total;
+
     }
 
     // método para atualizar a despesa total do meu usuário
-    public void alterarDespesaTotal(int id, double valorAtualizado, String coluna) {
+    public void alterarDespesaTotal(String email, double valorAtualizado, String coluna) {
+
         ContentValues valores = new ContentValues();
+
         valores.put(coluna, valorAtualizado);
 
-        banco.update("usuario", valores, "id = ?", new String[]{String.valueOf(id)});
+        banco.update("usuario", valores, "email = ?", new String[]{email});
+
+    }
+
+    // método para inserir um usuário que fez login com o google
+    public void inserirUsuarioComIdGoogle(String nome, String email) {
+
+        ContentValues valores = new ContentValues();
+
+        valores.put("nome", nome);
+        valores.put("email", email);
+
+        banco.insert("usuario", null, valores);
 
     }
 

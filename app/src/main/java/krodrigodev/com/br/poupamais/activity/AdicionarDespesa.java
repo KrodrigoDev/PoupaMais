@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;
@@ -36,7 +40,8 @@ public class AdicionarDespesa extends AppCompatActivity {
     private UsuarioDao usuarioDao;
     private final String TIPOMOVIMENTO = "despesa";
     private final String NOMECOLUNA = "totaldespesa";
-
+    private GoogleSignInOptions gso;
+    private GoogleSignInAccount account;
 
     @RequiresApi(api = Build.VERSION_CODES.O) //talvez procurar outra solução (DEPOIS)
     @Override
@@ -53,6 +58,12 @@ public class AdicionarDespesa extends AppCompatActivity {
         campoDescricao = findViewById(R.id.campoDescricaoDespesa);
         campoCategoria = findViewById(R.id.campoCategoriaDespesa);
         campoValor = findViewById(R.id.campoValorDespesa);
+
+        // inicialização api do google (caso o usuário faça login com o google)
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
+
+        account = GoogleSignIn.getLastSignedInAccount(this);
 
 
         //fazendo a modificação no texto da data para ao entrar puxar a data atual
@@ -87,7 +98,14 @@ public class AdicionarDespesa extends AppCompatActivity {
             movimentacao.setCategoria(categoria);
             movimentacao.setValor(despesaDigitada);
             movimentacao.setTipo(TIPOMOVIMENTO);
-            movimentacao.setId_usuario(UsuarioLogado.getIdUsuarioLogado());
+
+            // verificação do usuário local ou google
+            if (account != null) {
+                movimentacao.setEmail_Usuario(account.getEmail());
+            } else {
+                movimentacao.setEmail_Usuario(UsuarioLogado.getEmail());
+            }
+
 
             // realizando a soma das despesas antes de salvar
             double despesaAtualizada = despesaDigitada + despesaTotal;
@@ -112,16 +130,24 @@ public class AdicionarDespesa extends AppCompatActivity {
 
     // recuperando a despesa do usuário para realizar uma soma com a nova despesa adicionada
     public void recuperandoDespesa() {
-        despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getIdUsuarioLogado(), NOMECOLUNA);
+        if (account != null) {
+            despesaTotal = usuarioDao.recuperarTotal(account.getEmail(), NOMECOLUNA);
+        } else {
+            despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), NOMECOLUNA);
+        }
     }
 
     // método para atualizar a despesa total na conta do usuário
     public void atualizandoDespesa(double despesa) {
-        usuarioDao.alterarDespesaTotal(UsuarioLogado.getIdUsuarioLogado(), despesa, NOMECOLUNA);
+        if (account != null) {
+            usuarioDao.alterarDespesaTotal(account.getEmail(), despesa, NOMECOLUNA);
+        } else {
+            usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), despesa, NOMECOLUNA);
+        }
     }
 
     // método para finalizar a activity e voltar para a principal
-    public void voltarD(View view){
+    public void voltarD(View view) {
         finish();
     }
 

@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;
@@ -36,6 +40,8 @@ public class AdicionarLucro extends AppCompatActivity {
     private UsuarioDao usuarioDao;
     private final String TIPOMOVIMENTO = "lucro";
     private final String NOMECOLUNA = "totallucro";
+    private GoogleSignInOptions gso;
+    private GoogleSignInAccount account;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -52,6 +58,12 @@ public class AdicionarLucro extends AppCompatActivity {
         campoDescricao = findViewById(R.id.campoDescricaoLucro);
         campoCategoria = findViewById(R.id.campoCategoriaLucro);
         campoValor = findViewById(R.id.campoValorLucro);
+
+        // inicialização api do google (caso o usuário faça login com o google)
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
+
+        account = GoogleSignIn.getLastSignedInAccount(this);
 
 
         //fazendo a modificação no texto da data
@@ -72,7 +84,7 @@ public class AdicionarLucro extends AppCompatActivity {
         String valor = campoValor.getText().toString();
 
         // validando de todos os campos foram preenchidos
-        if(data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()){
+        if (data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()) {
 
             Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
 
@@ -82,12 +94,18 @@ public class AdicionarLucro extends AppCompatActivity {
 
             double lucroDigitado = Double.parseDouble(valor);
 
-            movimentacao.setData(LocalDate.parse(data,dataFormatada)); // melhorar isso depois
+            movimentacao.setData(LocalDate.parse(data, dataFormatada)); // melhorar isso depois
             movimentacao.setDescricao(descricao);
             movimentacao.setCategoria(categoria);
             movimentacao.setValor(lucroDigitado);
             movimentacao.setTipo(TIPOMOVIMENTO);
-            movimentacao.setId_usuario(UsuarioLogado.getIdUsuarioLogado());
+
+            // verificação do usuário local ou google
+            if (account != null) {
+                movimentacao.setEmail_Usuario(account.getEmail());
+            } else {
+                movimentacao.setEmail_Usuario(UsuarioLogado.getEmail());
+            }
 
             // realizando a soma das despesas antes de salvar
             double lucroAtualizado = lucroDigitado + lucroTotal;
@@ -110,22 +128,30 @@ public class AdicionarLucro extends AppCompatActivity {
     }
 
     // recuperando o lucro do usuário para realizar uma soma quando um novo lucro for adicionado
-    public void recuperandoLucro(){
-        lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getIdUsuarioLogado(),NOMECOLUNA);
+    public void recuperandoLucro() {
+        if (account != null) {
+            lucroTotal = usuarioDao.recuperarTotal(account.getEmail(), NOMECOLUNA);
+        } else {
+            lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), NOMECOLUNA);
+        }
     }
 
     // método para atualizar a despesa total na conta do usuário
-    public void atualizandoLucro(double lucro){
-        usuarioDao.alterarDespesaTotal(UsuarioLogado.getIdUsuarioLogado(), lucro,NOMECOLUNA);
+    public void atualizandoLucro(double lucro) {
+        if (account != null) {
+            usuarioDao.alterarDespesaTotal(account.getEmail(), lucro, NOMECOLUNA);
+        } else {
+            usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), lucro, NOMECOLUNA);
+        }
     }
 
     // método para finalizar a activity e voltar para a principal
-    public void voltarL(View view){
+    public void voltarL(View view) {
         finish();
     }
 
     // método para limpar os campos
-    public void limpaCampo(){
+    public void limpaCampo() {
         campoData.setText("");
         campoCategoria.setText("");
         campoDescricao.setText("");

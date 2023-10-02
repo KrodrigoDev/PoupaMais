@@ -17,6 +17,10 @@ public class Usuario implements Serializable {
     private double totalLucro = 0.00; //inicializando uma conta com saldo 0.00
     private double totalDespesa = 0.00;
 
+    // construtor
+    public Usuario(){
+
+    }
 
     // gets e sets
 
@@ -67,4 +71,5 @@ public class Usuario implements Serializable {
     public void setTotalDespesa(double totalDespesa) {
         this.totalDespesa = totalDespesa;
     }
+
 }

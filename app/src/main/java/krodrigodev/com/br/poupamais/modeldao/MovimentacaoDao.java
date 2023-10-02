@@ -34,22 +34,23 @@ public class MovimentacaoDao {
         valores.put("categoria", movimentacao.getCategoria());
         valores.put("valor", movimentacao.getValor());
         valores.put("tipo", movimentacao.getTipo());
-        valores.put("id_usuario", movimentacao.getId_usuario());
+        valores.put("email_Usuario", movimentacao.getEmail_Usuario());
 
         banco.insert("movimentacao", null, valores);
 
     }
 
     // método para recuperar a movimentação com base no mês
-    public List<Movimentacao> recuperarMovimentacaoMes(String dataCalendario,int idUsuario) {
+    public List<Movimentacao> recuperarMovimentacaoMes(String dataCalendario, String emailUsuario) {
 
-        try (Cursor cursor = banco.rawQuery("SELECT categoria, descricao, valor, tipo FROM movimentacao WHERE strftime('%Y-%m', data) = ? AND id_usuario = ?", new String[]{dataCalendario, String.valueOf(idUsuario)})) {
+        try (Cursor cursor = banco.rawQuery(
+                "SELECT categoria, descricao, valor, tipo FROM movimentacao WHERE strftime('%Y-%m', data) = ? AND email_Usuario = ?",
+                new String[]{dataCalendario, emailUsuario})) {
 
             List<Movimentacao> movimentacoes = new ArrayList<>();
 
             while (cursor.moveToNext()) {
                 Movimentacao movimentacao = new Movimentacao();
-
                 movimentacao.setCategoria(cursor.getString(0));
                 movimentacao.setDescricao(cursor.getString(1));
                 movimentacao.setValor(cursor.getDouble(2));
@@ -67,7 +68,5 @@ public class MovimentacaoDao {
 
         return null;
     }
-
-
 
 }
