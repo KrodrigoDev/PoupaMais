@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.helper.DataAtual;
@@ -28,20 +26,10 @@ public class AdicionarDespesa extends BaseMovimentacao {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_despesa);
 
-        // Inicializando o movimentacaoDao e usuarioDao
-        movimentacaoDao = new MovimentacaoDao(this);
-        usuarioDao = new UsuarioDao(this);
+        // chamando o inicizalizador dos meus elementos de interface
+        inicializar();
 
-        // Fazendo referências aos elementos da interface
-        campoData = findViewById(R.id.campoDataDespesa);
-        campoDescricao = findViewById(R.id.campoDescricaoDespesa);
-        campoCategoria = findViewById(R.id.campoCategoriaDespesa);
-        campoValor = findViewById(R.id.campoValorDespesa);
-
-        // Inicialização da API do Google (caso o usuário faça login com o Google)
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
-
+        // Inicialização API do Google (caso o usuário faça login com o Google)
         account = GoogleSignIn.getLastSignedInAccount(this);
 
         // Configurando o tipo de movimentação e o nome da coluna
@@ -61,21 +49,22 @@ public class AdicionarDespesa extends BaseMovimentacao {
         salvarMovimentacao(view);
     }
 
-    // Recuperando o valor da despesa do usuário para realizar uma soma com a nova despesa
-    @Override
-    protected void recuperandoValor() {
-        super.recuperandoValor();
-    }
-
-    // Método para atualizar o valor total de despesas na conta do usuário
-    @Override
-    protected void atualizandoValor(double valor) {
-        super.atualizandoValor(valor);
-    }
-
     // Método para finalizar a atividade e voltar para a janela principal
-    public void voltarD(View view){
+    public void voltarD(View view) {
         voltar(view);
+    }
+
+    // método que vai inicializar os meus atributos de despesa
+    public void inicializar() {
+
+        movimentacaoDao = new MovimentacaoDao(this);
+        usuarioDao = new UsuarioDao(this);
+
+        campoData = findViewById(R.id.campoDataDespesa);
+        campoDescricao = findViewById(R.id.campoDescricaoDespesa);
+        campoCategoria = findViewById(R.id.campoCategoriaDespesa);
+        campoValor = findViewById(R.id.campoValorDespesa);
+
     }
 
 }

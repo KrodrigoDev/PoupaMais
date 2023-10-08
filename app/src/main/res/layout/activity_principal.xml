@@ -28,6 +28,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/icon_do_menu"
+                android:onClick="abrirMenu"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_menu_24" />
 

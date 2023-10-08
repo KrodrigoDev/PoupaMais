@@ -9,17 +9,17 @@ package krodrigodev.com.br.poupamais.helper;
  */
 public class UsuarioLogado {
 
-    // atributo
-    private static String nomeUsuarioLogado;
+    // atributo para os usuários logados localmente
+    private static String nomeUsuarioLocal;
     private static String email;
 
-    // gets e sets
-    public static String getNomeUsuarioLogado() {
-        return nomeUsuarioLogado;
+    // gets e sets do usuário local
+    public static String getNomeUsuarioLocal() {
+        return nomeUsuarioLocal;
     }
 
-    public static void setNomeUsuarioLogado(String nomeUsuario) {
-        nomeUsuarioLogado = nomeUsuario;
+    public static void setNomeUsuarioLocal(String nomeUsuario) {
+        nomeUsuarioLocal = nomeUsuario;
     }
 
     public static String getEmail() {

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Save+</string>
+
+    <!-- TEXTS USED IN WELCOME SLIDE -->
+    <string name="slide_informativo">Quick Presentation</string>
+    <string name="circulo_texto">•</string>
+    <string name="organize_suas_contas_de_onde_estiver">Organize your finances from anywhere</string>
+    <string name="simples_f_cil_de_usar_e_gr_tis">Simple, easy to use, and free</string>
+    <string name="nunca_mais_esque_a_de_pagar_uma_conta">Never forget to pay a bill again</string>
+    <string name="receba_alertas_quando_quiser">Receive alerts when you want</string>
+    <string name="saiba_para_onde_est_indo_seu_dinheiro">Know where your money is going</string>
+    <string name="categorize_seus_lan_amentos_e_vendo_o_n_destino_de_cada_centavo">Categorize your transactions and see where every penny goes</string>
+
+    <!-- TEXTS USED IN ACCOUNT CREATION AND LOGIN PART 1-->
+    <string name="j_tenho_uma_conta">I already have an account</string>
+    <string name="cadastre_se">SIGN UP</string>
+    <string name="planeje_sua_vida_financeira_e_saia_ndo_vermelho">Plan your financial life and get out of the red</string>
+    <string name="crie_sua_conta_gratuitamente">Create Your Account for Free</string>
+
+    <!-- TEXTS USED IN ACCOUNT CREATION AND LOGIN PART 2-->
+    <string name="crie_sua_conta_gr_tis">Create your free account</string>
+    <string name="nome">Name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="senha">Password</string>
+    <string name="cadastrar">SIGN UP</string>
+    <string name="termos_de_uso">Terms of Use</string>
+    <string name="acesse_sua_conta">Access your account</string>
+    <string name="acessar">ACCESS</string>
+
+    <!-- TEXTS USED IN FIELDS, USER CREATION, AND LOGIN -->
+    <string name="validar_campos">Please fill in all fields</string>
+    <string name="confirmar_criacao_usuario">Account created successfully</string>
+    <string name="senha_email_invalidos">Invalid password or e-mail</string>
+    <string name="sucesso_login">Successful login</string>
+    <string name="email_duplicado">This e-mail is already registered</string>
+    <string name="email_invalido">Enter a valid e-mail address</string>
+    <string name="acessar_por_meio_de">Access using</string>
+    <string name="entrar_com_google">Log in with Google</string>
+    <string name="esqueceu_a_senha">Forgot your password?</string>
+
+    <!-- TEXTS USED IN THE MAIN WINDOW -->
+    <string name="poupa_mais">SAVE MORE</string>
+    <string name="icon_do_menu">Menu Icon</string>
+    <string name="valor">Value</string>
+    <string name="carregando">Loading…</string>
+    <string name="r_0">$ 0</string>
+    <string name="saldo_geral">Overall Balance</string>
+    <string-array name="meses">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <!-- TEXTS USED IN PROFIT AND EXPENSE WINDOW -->
+    <string name="voltar">Back</string>
+    <string name="data">Date</string>
+    <string name="categoria">Category</string>
+    <string name="descri_o">Description</string>
+    <string name="adicionar_despesa">Add Expense</string>
+    <string name="r_00_00">$ 00.00</string>
+    <string name="adicionar_lucro">Add Profit</string>
+    <string name="movimentacao_salva">Transaction saved successfully</string>
+
+    <!-- TEXTS USED WHEN USER LOGS IN WITH GOOGLE -->
+    <string name="sem_conexao">Check your Internet connection</string>
+    <string name="erro_login_google">Error logging in with Google</string>
+
+    <!-- TEXTS USED IN THE MENU -->
+    <string name="desconectar">Disconnect</string>
+    <string name="alterar_idioma">Change Language</string>
+    <string name="meu_perfil">My Profile</string>
+    <string name="email_menu">YourEmail@example.com</string>
+    <string name="nome_usuario_menu">Your Name</string>
+    <string name="foto_de_perfil">Profile Picture</string>
+
+    <!-- TEXTS USED IN THE MENU (USER PROFILE) -->
+    <string name="alterar_foto">Change Photo</string>
+    <string name="salvar_altera_es">Save Changes</string>
+    <string name="novo_e_mail">New E-mail</string>
+    <string name="novo_nome">New Name</string>
+    <string name="titulo_alerta">Update Data</string>
+    <string name="mensagem_alerta">Are you sure you want to update your information?</string>
+    <string name="opcao_sim_alerta">Yes</string>
+    <string name="opcao_nao_alerta">No</string>
+    <string name="atualizacao_cancelada">Update canceled</string>
+
+</resources>

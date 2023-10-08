@@ -23,7 +23,7 @@
             android:layout_height="50dp"
             android:contentDescription="@string/voltar"
             android:onClick="voltarD"
-            android:src="@drawable/icon_voltar_esquerda_24" />
+            android:src="@drawable/icon_voltar_cor_branca_24" />
 
         <EditText
             android:id="@+id/campoValorDespesa"

@@ -6,9 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,47 +33,37 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Inicialização
-        usuarioDao = new UsuarioDao(this);
-
-        email = findViewById(R.id.campoEmail);
-        senha = findViewById(R.id.campoSenha);
-        Button botaoAcessar = findViewById(R.id.bntAcessar);
-
-        // Ouvinte para adicionar uma ação para o botão
-        botaoAcessar.setOnClickListener(v -> {
-
-            String emailDigitado = email.getText().toString();
-            String senhaDigitada = senha.getText().toString();
-
-            // Validar se os campos estão vazios
-            if (emailDigitado.isEmpty() || senhaDigitada.isEmpty()) {
-
-                Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
-
-            } else {
-
-                fazerLogin(emailDigitado, senhaDigitada);
-
-            }
-
-        });
-
-        // Inicialização da imagem do Google
-        ImageView googleEntrar = findViewById(R.id.iconEntrarGoogle);
 
         // Implementando o login com o Google (requerindo o email e o ID do Google)
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-
         gsc = GoogleSignIn.getClient(this, gso);
 
-        // Ouvinte da imagem do Google
-        googleEntrar.setOnClickListener(v -> fazerLoginGoogle());
+        // chamando o método que inicaliza os meus atributos
+        inicializar();
+
+    }
+
+    // método que realiza o acesso
+    public void acessar(View view) {
+
+        String emailDigitado = email.getText().toString();
+        String senhaDigitada = senha.getText().toString();
+
+        // Validar se os campos estão vazios
+        if (emailDigitado.isEmpty() || senhaDigitada.isEmpty()) {
+
+            Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            fazerLogin(emailDigitado, senhaDigitada);
+
+        }
 
     }
 
     // Método para abrir uma activity com as contas do Google disponíveis
-    public void fazerLoginGoogle() {
+    public void fazerLoginGoogle(View view) {
         Intent entrarComGoogle = gsc.getSignInIntent();
         startActivityForResult(entrarComGoogle, 1000); // Este código é o que eu espero caso tenha sucesso depois
     }
@@ -160,7 +149,15 @@ public class LoginActivity extends AppCompatActivity {
 
         finish();
         startActivity(intent);
-
     }
+
+    // método que inicailizar os meus atributos
+    public void inicializar() {
+        usuarioDao = new UsuarioDao(this);
+
+        email = findViewById(R.id.campoEmail);
+        senha = findViewById(R.id.campoSenha);
+    }
+
 
 }

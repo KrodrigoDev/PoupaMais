@@ -1,51 +1,51 @@
 <resources>
-    <string name="app_name">PoupaMais</string>
+
+    <string name="app_name">Poupa+</string>
 
     <!-- TEXTOS USADOS NA PARTE DO SLIDE DE BOAS VINDAS -->
-    <string name="slide_informativo">Slide Informativo</string>
-    <string name="circulo_texto">●</string>
-    <string name="organize_suas_contas_de_onde_estiver">Organize suas contas \n de onde estiver</string>
-    <string name="simples_f_cil_de_usar_e_gr_tis">Simples, fácil de usar e grátis</string>
-    <string name="nunca_mais_esque_a_de_pagar_uma_conta">Nunca mais esqueça \n de pagar uma conta</string>
-    <string name="receba_alertas_quando_quiser">Receba alertas quando quiser</string>
-    <string name="saiba_para_onde_est_indo_seu_dinheiro">Saiba para onde está indo \n seu dinheiro</string>
-    <string name="categorize_seus_lan_amentos_e_vendo_o_n_destino_de_cada_centavo">Categorize seus lançamentos e vendo o \n destino de cada centavo</string>
+    <string name="slide_informativo">Apresentação Rápida</string>
+    <string name="circulo_texto">•</string>
+    <string name="organize_suas_contas_de_onde_estiver">Organize suas finanças de qualquer lugar</string>
+    <string name="simples_f_cil_de_usar_e_gr_tis">Simples, fácil de usar e gratuito</string>
+    <string name="nunca_mais_esque_a_de_pagar_uma_conta">Nunca mais esqueça de pagar uma conta</string>
+    <string name="receba_alertas_quando_quiser">Receba alertas quando preferir</string>
+    <string name="saiba_para_onde_est_indo_seu_dinheiro">Saiba para onde seu dinheiro está indo</string>
+    <string name="categorize_seus_lan_amentos_e_vendo_o_n_destino_de_cada_centavo">Categorize seus lançamentos e veja onde cada centavo vai</string>
 
-    <!-- TEXTOS USADOS NA CRIAR CONTA E ENTRAR PARTE 1-->
+    <!-- TEXTOS USADOS NA CRIAÇÃO DE CONTA E LOGIN PARTE 1-->
     <string name="j_tenho_uma_conta">Já tenho uma conta</string>
     <string name="cadastre_se">CADASTRE-SE</string>
-    <string name="planeje_sua_vida_financeira_e_saia_ndo_vermelho">Planeje sua vida financeira e saia \ndo vermelho</string>
+    <string name="planeje_sua_vida_financeira_e_saia_ndo_vermelho">Planeje sua vida financeira e saia do vermelho</string>
     <string name="crie_sua_conta_gratuitamente">Crie Sua Conta Gratuitamente</string>
 
-    <!-- TEXTOS USADOS NA CRIAR CONTA E ENTRAR PARTE 2-->
-    <string name="crie_sua_conta_gr_tis">Crie sua conta grátis</string>
+    <!-- TEXTOS USADOS NA CRIAÇÃO DE CONTA E LOGIN PARTE 2-->
+    <string name="crie_sua_conta_gr_tis">Crie sua conta gratuita</string>
     <string name="nome">Nome</string>
     <string name="e_mail">E-mail</string>
     <string name="senha">Senha</string>
     <string name="cadastrar">CADASTRAR</string>
-    <string name="termos_de_uso">Termos de uso</string>
+    <string name="termos_de_uso">Termos de Uso</string>
     <string name="acesse_sua_conta">Acesse sua conta</string>
     <string name="acessar">ACESSAR</string>
 
     <!-- TEXTOS USADOS NOS CAMPOS, CRIAÇÃO DO USUÁRIO E LOGIN -->
-    <string name="validar_campos">Preencha todos os campos</string>
-    <string name="confirmar_criacao_usuario">Usuário criado com sucesso</string>
+    <string name="validar_campos">Por favor, preencha todos os campos</string>
+    <string name="confirmar_criacao_usuario">Conta criada com sucesso</string>
     <string name="senha_email_invalidos">Senha ou e-mail inválidos</string>
-    <string name="sucesso_login">Sucesso ao fazer login</string>
-    <string name="email_duplicado">Esse e-mail já foi cadastrado</string>
+    <string name="sucesso_login">Login bem-sucedido</string>
+    <string name="email_duplicado">Este e-mail já está cadastrado</string>
     <string name="email_invalido">Digite um endereço de e-mail válido</string>
-    <string name="acessar_por_meio_de">Acessar por meio de</string>
-    <string name="entrar_com_google">Entrar com google</string>
-    <string name="esqueceu_a_senha">Esqueceu a senha ?</string>
+    <string name="acessar_por_meio_de">Acessar usando</string>
+    <string name="entrar_com_google">Entrar com o Google</string>
+    <string name="esqueceu_a_senha">Esqueceu a senha?</string>
 
     <!-- TEXTOS USADOS NA JANELA PRINCIPAL -->
-    <string name="title_activity_principal">PrincipalActivity</string>
     <string name="poupa_mais">POUPA MAIS</string>
-    <string name="icon_do_menu">Icon do menu</string>
+    <string name="icon_do_menu">Ícone do Menu</string>
     <string name="valor">Valor</string>
     <string name="carregando">Carregando…</string>
     <string name="r_0">R$ 0</string>
-    <string name="saldo_geral">saldo geral</string>
+    <string name="saldo_geral">Saldo Geral</string>
     <string-array name="meses">
         <item>Janeiro</item>
         <item>Fevereiro</item>
@@ -61,7 +61,7 @@
         <item>Dezembro</item>
     </string-array>
 
-    <!-- TEXTOS USADOS NA JANELA DE LUCROS E DESPESA-->
+    <!-- TEXTOS USADOS NA JANELA DE LUCROS E DESPESAS -->
     <string name="voltar">Voltar</string>
     <string name="data">Data</string>
     <string name="categoria">Categoria</string>
@@ -69,11 +69,29 @@
     <string name="adicionar_despesa">Adicionar Despesa</string>
     <string name="r_00_00">R$ 00.00</string>
     <string name="adicionar_lucro">Adicionar Lucro</string>
-    <string name="movimentacao_salva">adicionado com sucessso</string>
+    <string name="movimentacao_salva">Movimentação salva com sucesso</string>
 
-    <!-- TEXTOS USADOS QUANDO O USUÁRIO FAZ LOGIN COM O GOOGLE-->
+    <!-- TEXTOS USADOS QUANDO O USUÁRIO FAZ LOGIN COM O GOOGLE -->
     <string name="sem_conexao">Verifique sua conexão com a Internet</string>
     <string name="erro_login_google">Erro ao fazer login com o Google</string>
 
+    <!-- TEXTOS USADOS NO MENU -->
+    <string name="desconectar">Desconectar</string>
+    <string name="alterar_idioma">Alterar Idioma</string>
+    <string name="meu_perfil">Meu Perfil</string>
+    <string name="email_menu">SeuEmail@exemplo.com</string>
+    <string name="nome_usuario_menu">Seu Nome</string>
+    <string name="foto_de_perfil">Foto de Perfil</string>
+
+    <!-- TEXTOS USADOS NO MENU (PERFIL DO USUÁRIO) -->
+    <string name="alterar_foto">Alterar Foto</string>
+    <string name="salvar_altera_es">Salvar alterações</string>
+    <string name="novo_e_mail">Novo e-mail</string>
+    <string name="novo_nome">Novo nome</string>
+    <string name="titulo_alerta">Atualizar Dados</string>
+    <string name="mensagem_alerta">Tem certeza de que deseja atualizar suas informações?</string>
+    <string name="opcao_sim_alerta">Sim</string>
+    <string name="opcao_nao_alerta">Não</string>
+    <string name="atualizacao_cancelada">Atualização cancelada</string>
 
 </resources>

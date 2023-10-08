@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -44,7 +42,6 @@ public class PrincipalActivity extends AppCompatActivity {
     private List<Movimentacao> movimentacoes = new ArrayList<>();
     private String mesAnoSelecionado;
     private AdpterMovimentacoes adpterMovimentacoes;
-    private GoogleSignInOptions gso;
     private GoogleSignInAccount account;
 
     @Override
@@ -52,21 +49,11 @@ public class PrincipalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        // Inicializando o usuarioDao e o movimentacaoDao
-        usuarioDao = new UsuarioDao(this);
-        movimentacaoDao = new MovimentacaoDao(this);
-
-        // Inicializando os elementos da interface
-        calendario = findViewById(R.id.calendario);
-        saudacaoUsuario = findViewById(R.id.textSaudacaoUsuario);
-        saldoTotal = findViewById(R.id.textValorTotal);
-        listaMovimento = findViewById(R.id.listaMovimentos);
-
-        // Inicialização da API do Google (caso o usuário faça login com o Google)
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
-
+        // Verificando se o usuário logou com o google
         account = GoogleSignIn.getLastSignedInAccount(this);
+
+        // método inicializador (para os atributos)
+        inicializar();
 
         // Configurações do adaptador
         adpterMovimentacoes = new AdpterMovimentacoes(movimentacoes, this);
@@ -158,7 +145,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
         } else {
 
-            nomeUsuario = UsuarioLogado.getNomeUsuarioLogado();
+            nomeUsuario = UsuarioLogado.getNomeUsuarioLocal();
             lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
             despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
 
@@ -175,6 +162,18 @@ public class PrincipalActivity extends AppCompatActivity {
 
     }
 
+    // método para inicializar os meus atributos
+    public void inicializar(){
+
+        usuarioDao = new UsuarioDao(this);
+        movimentacaoDao = new MovimentacaoDao(this);
+
+        calendario = findViewById(R.id.calendario);
+        saudacaoUsuario = findViewById(R.id.textSaudacaoUsuario);
+        saldoTotal = findViewById(R.id.textValorTotal);
+        listaMovimento = findViewById(R.id.listaMovimentos);
+    }
+
     // Métodos de navegação
 
     public void abrirJanelaLucro(View view) {
@@ -184,6 +183,11 @@ public class PrincipalActivity extends AppCompatActivity {
 
     public void abrirJanelaDespesa(View view) {
         Intent intent = new Intent(PrincipalActivity.this, AdicionarDespesa.class);
+        startActivity(intent);
+    }
+
+    public void abrirMenu(View view) {
+        Intent intent = new Intent(PrincipalActivity.this, Menu.class);
         startActivity(intent);
     }
 

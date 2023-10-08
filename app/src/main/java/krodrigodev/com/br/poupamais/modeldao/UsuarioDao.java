@@ -64,7 +64,7 @@ public class UsuarioDao {
 
                     // pegando o email do usuário após o login
                     UsuarioLogado.setEmail(emailUsuario);
-                    UsuarioLogado.setNomeUsuarioLogado(nomeUsuario);
+                    UsuarioLogado.setNomeUsuarioLocal(nomeUsuario);
 
                     return true;
 
@@ -132,6 +132,19 @@ public class UsuarioDao {
         valores.put("email", email);
 
         banco.insert("usuario", null, valores);
+
+    }
+
+    // método para atualizar os dados do meu usuário
+    public void alterarDados(String novoNome, String novoEmail, String emailAntigo) {
+
+        ContentValues valores = new ContentValues();
+
+        valores.put("nome", novoNome);
+        valores.put("email", novoEmail);
+
+        // Atualiza os dados onde o email antigo corresponde ao email na tabela
+        banco.update("usuario", valores, "email = ?", new String[]{emailAntigo});
 
     }
 

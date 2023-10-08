@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.helper.DataAtual;
@@ -27,20 +25,10 @@ public class AdicionarLucro extends BaseMovimentacao {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_lucro);
 
-        // Inicializando o movimentoDAO e usuarioDao
-        movimentacaoDao = new MovimentacaoDao(this);
-        usuarioDao = new UsuarioDao(this);
-
-        // Fazendo referências
-        campoData = findViewById(R.id.campoDataLucro);
-        campoDescricao = findViewById(R.id.campoDescricaoLucro);
-        campoCategoria = findViewById(R.id.campoCategoriaLucro);
-        campoValor = findViewById(R.id.campoValorLucro);
+        // chamando o inicizalizador dos meus elementos de interface
+        inicializar();
 
         // Inicialização API do Google (caso o usuário faça login com o Google)
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
-
         account = GoogleSignIn.getLastSignedInAccount(this);
 
         // Modificando o texto da data para a data atual
@@ -63,6 +51,17 @@ public class AdicionarLucro extends BaseMovimentacao {
     // Método para finalizar a activity e voltar para a principal
     public void voltarL(View view) {
         voltar(view);
+    }
+
+    // método que vai inicializar os meus atributos de lucro
+    public void inicializar() {
+        movimentacaoDao = new MovimentacaoDao(this);
+        usuarioDao = new UsuarioDao(this);
+
+        campoData = findViewById(R.id.campoDataLucro);
+        campoDescricao = findViewById(R.id.campoDescricaoLucro);
+        campoCategoria = findViewById(R.id.campoCategoriaLucro);
+        campoValor = findViewById(R.id.campoValorLucro);
     }
 
 }

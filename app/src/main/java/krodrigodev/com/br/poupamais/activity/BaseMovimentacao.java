@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;
@@ -37,7 +36,6 @@ public abstract class BaseMovimentacao extends Activity {
     protected MovimentacaoDao movimentacaoDao;
     protected double valorTotal;
     protected UsuarioDao usuarioDao;
-    protected GoogleSignInOptions gso;
     protected GoogleSignInAccount account;
     protected String NOMECOLUNA, TIPOMOVIMENTO;
 
