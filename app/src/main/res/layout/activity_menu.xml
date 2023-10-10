@@ -20,19 +20,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_voltar_cor_verde_24" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/fotoUsuario"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/foto_de_perfil"
-        android:scaleType="fitCenter"
+        android:src="@drawable/icon_usuario_circulo_24"
+        app:civ_border_color="@color/cor_transparente"
+        app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/voltarMenu"
-        app:srcCompat="@drawable/icon_usuario_circulo_24" />
+        app:layout_constraintTop_toBottomOf="@+id/voltarMenu" />
 
     <TextView
         android:id="@+id/textNomeUsuario"
@@ -97,28 +98,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textMeuPerfil" />
 
     <TextView
-        android:id="@+id/textAlterarIdioma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/alterar_idioma"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider5" />
-
-    <View
-        android:id="@+id/divider7"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAlterarIdioma" />
-
-    <TextView
         android:id="@+id/textDesconectar"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
@@ -131,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider7" />
+        app:layout_constraintTop_toBottomOf="@+id/divider5" />
 
     <View
         android:id="@+id/divider2"

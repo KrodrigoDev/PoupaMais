@@ -40,11 +40,13 @@
     <string name="esqueceu_a_senha">Esqueceu a senha?</string>
 
     <!-- TEXTOS USADOS NA JANELA PRINCIPAL -->
+    <string name="saudacao">Olá, </string>
     <string name="poupa_mais">POUPA MAIS</string>
     <string name="icon_do_menu">Ícone do Menu</string>
     <string name="valor">Valor</string>
     <string name="carregando">Carregando…</string>
     <string name="r_0">R$ 0</string>
+    <string name="moeda">R$ </string>
     <string name="saldo_geral">Saldo Geral</string>
     <string-array name="meses">
         <item>Janeiro</item>
@@ -82,6 +84,10 @@
     <string name="email_menu">SeuEmail@exemplo.com</string>
     <string name="nome_usuario_menu">Seu Nome</string>
     <string name="foto_de_perfil">Foto de Perfil</string>
+    <string-array name="lista_idiomas">
+        <item>Inglês (EUA) - en-US</item>
+        <item>Português (Brasil) - pt-BR</item>
+    </string-array>
 
     <!-- TEXTOS USADOS NO MENU (PERFIL DO USUÁRIO) -->
     <string name="alterar_foto">Alterar Foto</string>

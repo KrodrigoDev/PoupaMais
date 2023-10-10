@@ -75,6 +75,7 @@ public class Menu extends AppCompatActivity {
     }
 
     // Métodos de navegação (Todos as opções do menu)
+
     public void voltarPrincipal(View view) {
         finish();
     }

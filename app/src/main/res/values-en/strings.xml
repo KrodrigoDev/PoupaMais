@@ -41,11 +41,13 @@
     <string name="esqueceu_a_senha">Forgot your password?</string>
 
     <!-- TEXTS USED IN THE MAIN WINDOW -->
+    <string name="saudacao">Hello, </string>
     <string name="poupa_mais">SAVE MORE</string>
     <string name="icon_do_menu">Menu Icon</string>
     <string name="valor">Value</string>
     <string name="carregando">Loading…</string>
     <string name="r_0">$ 0</string>
+    <string name="moeda">$ </string>
     <string name="saldo_geral">Overall Balance</string>
     <string-array name="meses">
         <item>January</item>
@@ -83,6 +85,10 @@
     <string name="email_menu">YourEmail@example.com</string>
     <string name="nome_usuario_menu">Your Name</string>
     <string name="foto_de_perfil">Profile Picture</string>
+    <string-array name="lista_idiomas">
+        <item>Inglês (EUA) - en-US</item>
+        <item>Português (Brasil) - pt-BR</item>
+    </string-array>
 
     <!-- TEXTS USED IN THE MENU (USER PROFILE) -->
     <string name="alterar_foto">Change Photo</string>

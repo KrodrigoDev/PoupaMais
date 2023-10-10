@@ -156,9 +156,9 @@ public class PrincipalActivity extends AppCompatActivity {
 
         DecimalFormat formato = new DecimalFormat("0.##");
 
-        saldoTotal.setText("R$ " + formato.format(totalUsuario));
+        saldoTotal.setText(getString(R.string.moeda) +" "+ formato.format(totalUsuario));
 
-        saudacaoUsuario.setText("Olá, " + nomeUsuario);
+        saudacaoUsuario.setText(getString(R.string.saudacao) +" "+ nomeUsuario);
 
     }
 

@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'krodrigodev.com.br.poupamais'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "krodrigodev.com.br.poupamais"
@@ -34,8 +34,9 @@ android {
 
 dependencies {
 
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.google.android.material:material:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -44,8 +45,9 @@ dependencies {
     // dependêcia do google (Relacionada ao entrar com o google)
     implementation 'com.google.android.gms:play-services-auth:20.7.0'
 
-    // dependêcia de terceiros (devem ser trocada depois e não atualizar a versão)
-    implementation 'com.github.clans:fab:1.6.4'  // fab
-    implementation "com.github.prolificinteractive:material-calendarview:1.6.0" // calendar
+    // dependêcia de terceiros (devem ser trocada depois e não devem ser atualizadas)
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation "com.github.prolificinteractive:material-calendarview:1.6.0"
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }

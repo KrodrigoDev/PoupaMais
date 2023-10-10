@@ -12,5 +12,6 @@
     <color name="vermelhoDespesa">#B62839</color>  <!-- cor para qualquer coisa refente despesa -->
     <color name="verdeLucro">#009278</color> <!-- cor para qualquer coisa refente ao lucro -->
     <color name="brancoCinza">#EFEFEF</color> <!-- cor usada no background do adpter movimentações -->
+    <color name="cor_transparente">#00000000</color> <!-- usada para se livrar de algumas coisas (menu e meu perfil)-->
 
 </resources>
