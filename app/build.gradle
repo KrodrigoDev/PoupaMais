@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "krodrigodev.com.br.poupamais"
         minSdk 24
-        targetSdk 33
+        targetSdk 33 // verificar isso depois
         versionCode 1
         versionName "1.0"
 

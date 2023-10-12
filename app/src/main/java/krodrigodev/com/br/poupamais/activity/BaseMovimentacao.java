@@ -1,7 +1,5 @@
 package krodrigodev.com.br.poupamais.activity;
 
-import static krodrigodev.com.br.poupamais.helper.DataAtual.dataFormatada;
-
 import android.app.Activity;
 import android.os.Build;
 import android.view.View;
@@ -14,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.helper.UsuarioLogado;
@@ -28,6 +27,7 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
  * Essa classe serve como base para as atividades de adição de despesas e lucros,
  * fornecendo métodos e atributos comuns que podem ser herdados por essas atividades.
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
 public abstract class BaseMovimentacao extends Activity {
 
     // atributos
@@ -38,6 +38,8 @@ public abstract class BaseMovimentacao extends Activity {
     protected UsuarioDao usuarioDao;
     protected GoogleSignInAccount account;
     protected String NOMECOLUNA, TIPOMOVIMENTO;
+    protected DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    protected LocalDate dataAtual = LocalDate.now();
 
     //Método para salvar uma movimentação financeira (despesa ou lucro).
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -48,47 +50,45 @@ public abstract class BaseMovimentacao extends Activity {
         String categoria = campoCategoria.getText().toString();
         String valor = campoValor.getText().toString();
 
-        // Validando se todos os campos foram preenchidos
         if (data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()) {
 
             Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
 
+        } else if (data.length() != 10) {
+
+            Toast.makeText(this, R.string.data_invalida, Toast.LENGTH_SHORT).show();
+
         } else {
 
-            Movimentacao movimentacao = new Movimentacao();
+            try {
 
-            double valorDigitado = Double.parseDouble(valor);
+                dataAtual = LocalDate.parse(data, formatoData);
+                double valorDigitado = Double.parseDouble(valor);
 
-            movimentacao.setData(LocalDate.parse(data, dataFormatada)); // melhorar isso depois
-            movimentacao.setDescricao(descricao);
-            movimentacao.setCategoria(categoria);
-            movimentacao.setValor(valorDigitado);
-            movimentacao.setTipo(TIPOMOVIMENTO);
+                // Criando a movimentação
+                Movimentacao movimentacao = new Movimentacao(dataAtual, descricao, categoria, TIPOMOVIMENTO, UsuarioLogado.getEmail(), valorDigitado);
 
-            // Verificação do usuário local ou Google
-            if (account != null) {
-                movimentacao.setEmail_Usuario(account.getEmail());
-            } else {
-                movimentacao.setEmail_Usuario(UsuarioLogado.getEmail());
+                // Realizando a soma das despesas antes de salvar
+                double valorAtualizado = valorDigitado + valorTotal;
+
+                // Atualizando o total de despesas ou lucros na tabela do usuário
+                atualizandoValor(valorAtualizado);
+
+                // Salvando a movimentação
+                movimentacaoDao.salvarMovimentacao(movimentacao);
+
+                // Limpando os campos após os dados serem salvos
+                limpaCampo();
+
+                // Exibindo mensagem de confirmação para o usuário
+                Toast.makeText(this, R.string.movimentacao_salva, Toast.LENGTH_SHORT).show();
+
+                // Finalizando a atividade e voltando para a janela principal
+                finish();
+
+            } catch (Exception erro) {
+                Toast.makeText(this, R.string.data_invalida, Toast.LENGTH_SHORT).show();
             }
-
-            // Realizando a soma das despesas antes de salvar
-            double valorAtualizado = valorDigitado + valorTotal;
-
-            // Atualizando o total de despesas ou lucros na tabela do usuário
-            atualizandoValor(valorAtualizado);
-
-            // Salvando a movimentação
-            movimentacaoDao.salvarMovimentacao(movimentacao);
-
-            // Limpando os campos após os dados serem salvos
-            limpaCampo();
-
-            // Exibindo mensagem de confirmação para o usuário
-            Toast.makeText(this, R.string.movimentacao_salva, Toast.LENGTH_SHORT).show();
-
-            // Finalizando a atividade e voltando para a janela principal
-            finish();
 
         }
 
@@ -97,25 +97,13 @@ public abstract class BaseMovimentacao extends Activity {
 
     // Método para recuperar o valor total das movimentações (despesas ou lucros) do usuário.
     protected void recuperandoValor() {
-
-        if (account != null) {
-            valorTotal = usuarioDao.recuperarTotal(account.getEmail(), NOMECOLUNA);
-        } else {
-            valorTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), NOMECOLUNA);
-        }
-
+        valorTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), NOMECOLUNA);
     }
 
 
     // Método para atualizar o valor total das movimentações (despesas ou lucros) do usuário.
     protected void atualizandoValor(double valor) {
-
-        if (account != null) {
-            usuarioDao.alterarDespesaTotal(account.getEmail(), valor, NOMECOLUNA);
-        } else {
-            usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), valor, NOMECOLUNA);
-        }
-
+        usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), valor, NOMECOLUNA);
     }
 
 

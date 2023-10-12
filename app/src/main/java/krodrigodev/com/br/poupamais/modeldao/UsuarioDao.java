@@ -128,6 +128,9 @@ public class UsuarioDao {
 
         ContentValues valores = new ContentValues();
 
+        UsuarioLogado.setNomeUsuarioLocal(nome);
+        UsuarioLogado.setEmail(email);
+
         valores.put("nome", nome);
         valores.put("email", email);
 

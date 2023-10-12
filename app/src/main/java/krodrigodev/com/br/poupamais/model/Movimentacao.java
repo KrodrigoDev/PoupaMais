@@ -17,8 +17,17 @@ public class Movimentacao implements Serializable {
     private double valor;
 
     // construtor
-    public Movimentacao(){
+    public Movimentacao() {
+    }
 
+    // construtor com sobrecarga para criação de uma movimentação
+    public Movimentacao(LocalDate data, String descricao, String categoria, String tipo, String email, double valor) {
+        setData(data);
+        setDescricao(descricao);
+        setCategoria(categoria);
+        setTipo(tipo);
+        setEmail_Usuario(email);
+        setValor(valor);
     }
 
     // gets e sets
@@ -30,7 +39,6 @@ public class Movimentacao implements Serializable {
     public LocalDate getData() {
         return data;
     }
-
 
     public void setData(LocalDate data) {
         this.data = data;

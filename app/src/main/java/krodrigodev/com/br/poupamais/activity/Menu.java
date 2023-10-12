@@ -54,17 +54,8 @@ public class Menu extends AppCompatActivity {
 
     // Método que vai recuperar email e nome
     public void recuperarInfo() {
-
-        if (account != null) {
-            // Usuário logado com o Google
-            nomeUsuario.setText(account.getDisplayName());
-            emailUsuario.setText(account.getEmail());
-        } else {
-            // Usuário logado localmente
-            nomeUsuario.setText(UsuarioLogado.getNomeUsuarioLocal());
-            emailUsuario.setText(UsuarioLogado.getEmail());
-        }
-
+        nomeUsuario.setText(UsuarioLogado.getNomeUsuarioLocal());
+        emailUsuario.setText(UsuarioLogado.getEmail());
     }
 
     // Método que vai inicializar meus atributos

@@ -9,7 +9,6 @@ import android.view.View;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 
 import krodrigodev.com.br.poupamais.R;
-import krodrigodev.com.br.poupamais.helper.DataAtual;
 import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
@@ -17,6 +16,7 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
  * @author Kauã Rodrigo
  * @since 02/10/2023
  */
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class AdicionarLucro extends BaseMovimentacao {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -32,7 +32,7 @@ public class AdicionarLucro extends BaseMovimentacao {
         account = GoogleSignIn.getLastSignedInAccount(this);
 
         // Modificando o texto da data para a data atual
-        campoData.setText(DataAtual.getDataFormatada());
+        campoData.setText(dataAtual.format(formatoData));
 
         // Configurando o tipo de movimentação e o nome da coluna
         TIPOMOVIMENTO = "lucro";

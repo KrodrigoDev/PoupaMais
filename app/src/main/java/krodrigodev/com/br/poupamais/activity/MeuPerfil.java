@@ -7,12 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.textfield.TextInputEditText;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.controller.ValidarEmail;
+import krodrigodev.com.br.poupamais.helper.Notificacao;
 import krodrigodev.com.br.poupamais.helper.UsuarioLogado;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
@@ -24,9 +23,9 @@ public class MeuPerfil extends AppCompatActivity {
 
     // atributos
     private TextInputEditText campoNome, campoEmail;
-    private GoogleSignInAccount account;
     private UsuarioDao usuarioDao;
     private String emailAntigo;
+    private Notificacao notificacaoAlteracao;
 
 
     @Override
@@ -34,15 +33,11 @@ public class MeuPerfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meu_perfil);
 
-        // Verificando se o usuário logou com o google
-        account = GoogleSignIn.getLastSignedInAccount(this);
-
         // Inicializa os campos
         inicializar();
 
         // Preenchendo os campos com nome e email quando o usuário entra na tela
         recuperarInfo();
-
     }
 
     // método para atualzar o email e nome (depois coloco a senha)
@@ -61,6 +56,7 @@ public class MeuPerfil extends AppCompatActivity {
 
         } else {
 
+            // alterar isso pra permitir que o usuário aletre apenas o nome e senha
             desejaAlterar(nome, email, emailAntigo);
 
         }
@@ -91,6 +87,9 @@ public class MeuPerfil extends AppCompatActivity {
             UsuarioLogado.setNomeUsuarioLocal(novoNome);
             UsuarioLogado.setEmail(novoEmail);
 
+            // Enviar uma notificação de mudança para o usuário (lembrar de tirar isso depois)
+            notificacaoAlteracao.notificacao("Alerta de Mudança", "Olá " + novoNome + ", alterações foram realizadas em sua conta");
+
             finish();
         });
 
@@ -106,24 +105,12 @@ public class MeuPerfil extends AppCompatActivity {
 
     public void recuperarInfo() {
 
-        if (account != null) {
-
-            // Usuário logado com o Google
-            campoNome.setText(account.getDisplayName());
-            campoEmail.setText(account.getEmail());
-            emailAntigo = account.getEmail();
-
-        } else {
-
-            // Usuário logado localmente
-            campoNome.setText(UsuarioLogado.getNomeUsuarioLocal());
-            campoEmail.setText(UsuarioLogado.getEmail());
-            emailAntigo = UsuarioLogado.getEmail();
-
-        }
+        // Usuário logado localmente
+        campoNome.setText(UsuarioLogado.getNomeUsuarioLocal());
+        campoEmail.setText(UsuarioLogado.getEmail());
+        emailAntigo = UsuarioLogado.getEmail();
 
     }
-
 
     // Método para inicializar os campos
     public void inicializar() {
@@ -131,5 +118,7 @@ public class MeuPerfil extends AppCompatActivity {
         campoEmail = findViewById(R.id.campoEmailMeuPerfil);
 
         usuarioDao = new UsuarioDao(this);
+        notificacaoAlteracao = new Notificacao(this);
     }
+
 }

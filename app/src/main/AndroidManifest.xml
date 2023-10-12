@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Pedido permissão para usar a internet (Login com o gooogle) -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -17,64 +17,57 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoupaMais"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activity.EsqueceuSenha"
+            android:exported="false" />
         <activity
             android:name=".activity.MeuPerfil"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.Menu"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.AdicionarLucro"
             android:exported="false"
-            android:theme="@style/Lucro.Theme"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            android:theme="@style/Lucro.Theme"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.AdicionarDespesa"
             android:exported="false"
-            android:theme="@style/Despesa.Theme"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            android:theme="@style/Despesa.Theme"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.PrincipalActivity"
             android:exported="false"
-            android:theme="@style/Theme.PoupaMais"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-
+            android:theme="@style/Theme.PoupaMais"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.CadastroActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".activity.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

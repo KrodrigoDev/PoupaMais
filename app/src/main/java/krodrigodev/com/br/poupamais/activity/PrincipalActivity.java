@@ -2,16 +2,16 @@ package krodrigodev.com.br.poupamais.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -42,15 +42,11 @@ public class PrincipalActivity extends AppCompatActivity {
     private List<Movimentacao> movimentacoes = new ArrayList<>();
     private String mesAnoSelecionado;
     private AdpterMovimentacoes adpterMovimentacoes;
-    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
-        // Verificando se o usuário logou com o google
-        account = GoogleSignIn.getLastSignedInAccount(this);
 
         // método inicializador (para os atributos)
         inicializar();
@@ -78,17 +74,9 @@ public class PrincipalActivity extends AppCompatActivity {
 
     // Método para recuperar as movimentações
     public void recuperarMovimentacoes() {
-        String emailUsario;
-
-        // verificando se é um usuário local ou do google
-        if (account != null) {
-            emailUsario = account.getEmail();
-        } else {
-            emailUsario = UsuarioLogado.getEmail();
-        }
 
         // Recupera as movimentações com base no e-mail do usuário
-        movimentacoes = movimentacaoDao.recuperarMovimentacaoMes(mesAnoSelecionado, emailUsario);
+        movimentacoes = movimentacaoDao.recuperarMovimentacaoMes(mesAnoSelecionado, UsuarioLogado.getEmail());
 
         // Atualiza o adaptador com as movimentações recuperadas
         adpterMovimentacoes.atualizarMovimentacoes(movimentacoes);
@@ -136,34 +124,24 @@ public class PrincipalActivity extends AppCompatActivity {
         double lucroTotal;
         double despesaTotal;
 
-        // Verificando se é um usuário local ou com a conta do Google
-        if (account != null) {
+        nomeUsuario = UsuarioLogado.getNomeUsuarioLocal();
+        lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
+        despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
 
-            nomeUsuario = account.getDisplayName();
-            lucroTotal = usuarioDao.recuperarTotal(account.getEmail(), COLUNALUCRO);
-            despesaTotal = usuarioDao.recuperarTotal(account.getEmail(), COLUNADESPESA);
-
-        } else {
-
-            nomeUsuario = UsuarioLogado.getNomeUsuarioLocal();
-            lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
-            despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
-
-        }
 
         // Aplicando alterações na view com os dados obtidos
         double totalUsuario = lucroTotal - despesaTotal;
 
         DecimalFormat formato = new DecimalFormat("0.##");
 
-        saldoTotal.setText(getString(R.string.moeda) +" "+ formato.format(totalUsuario));
+        saldoTotal.setText(getString(R.string.moeda) + " " + formato.format(totalUsuario));
 
-        saudacaoUsuario.setText(getString(R.string.saudacao) +" "+ nomeUsuario);
+        saudacaoUsuario.setText(getString(R.string.saudacao) + " " + nomeUsuario);
 
     }
 
     // método para inicializar os meus atributos
-    public void inicializar(){
+    public void inicializar() {
 
         usuarioDao = new UsuarioDao(this);
         movimentacaoDao = new MovimentacaoDao(this);
@@ -176,11 +154,13 @@ public class PrincipalActivity extends AppCompatActivity {
 
     // Métodos de navegação
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void abrirJanelaLucro(View view) {
         Intent intent = new Intent(PrincipalActivity.this, AdicionarLucro.class);
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void abrirJanelaDespesa(View view) {
         Intent intent = new Intent(PrincipalActivity.this, AdicionarDespesa.class);
         startActivity(intent);

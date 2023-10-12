@@ -56,10 +56,7 @@ public class CadastroActivity extends AppCompatActivity {
 
             } else {
 
-                Usuario usuario = new Usuario();
-                usuario.setNome(nomeDigitado);
-                usuario.setEmail(emailDigitado);
-                usuario.setSenha(senhaDigitada);
+                Usuario usuario = new Usuario(nomeDigitado, emailDigitado, senhaDigitada);
 
                 // Validação para verificar se o e-mail já existe no banco
                 if (usuarioDao.validaEmailExitentes(usuario.getEmail())) {

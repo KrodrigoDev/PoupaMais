@@ -73,6 +73,8 @@
     <string name="r_00_00">$ 00.00</string>
     <string name="adicionar_lucro">Add Profit</string>
     <string name="movimentacao_salva">Transaction saved successfully</string>
+    <string name="data_invalida">fill in the date in the format dd/MM/yyyy</string>
+
 
     <!-- TEXTS USED WHEN USER LOGS IN WITH GOOGLE -->
     <string name="sem_conexao">Check your Internet connection</string>

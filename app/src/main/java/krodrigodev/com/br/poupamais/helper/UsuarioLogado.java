@@ -3,9 +3,6 @@ package krodrigodev.com.br.poupamais.helper;
 /**
  * @author Kauã Rodrigo
  * @since 01/10/2023
- * <p>
- * Essa classe foi feita para quando o meu usuário decidir fazer um login
- * com uma conta local
  */
 public class UsuarioLogado {
 

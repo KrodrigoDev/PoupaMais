@@ -6,6 +6,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author Kauã Rodrigo
+ */
 public class EncriptaMD5 {
 
     // Método para encriptar a senha do usuário usando o algoritmo MD5

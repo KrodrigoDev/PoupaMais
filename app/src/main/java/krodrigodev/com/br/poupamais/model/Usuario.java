@@ -14,12 +14,16 @@ public class Usuario implements Serializable {
     private String nome;
     private String email;
     private String senha;
-    private double totalLucro = 0.00; //inicializando uma conta com saldo 0.00
+    private double totalLucro = 0.00;
     private double totalDespesa = 0.00;
 
-    // construtor
-    public Usuario(){
 
+
+    // construtor
+    public Usuario(String nome, String email,String senha){
+        setNome(nome);
+        setEmail(email);
+        setSenha(senha);
     }
 
     // gets e sets
