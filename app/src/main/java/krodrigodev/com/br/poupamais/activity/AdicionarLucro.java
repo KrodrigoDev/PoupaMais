@@ -9,6 +9,7 @@ import android.view.View;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 
 import krodrigodev.com.br.poupamais.R;
+import krodrigodev.com.br.poupamais.controller.BaseMovimentacao;
 import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
@@ -50,7 +51,7 @@ public class AdicionarLucro extends BaseMovimentacao {
 
     // Método para finalizar a activity e voltar para a principal
     public void voltarL(View view) {
-        voltar(view);
+        finish();
     }
 
     // método que vai inicializar os meus atributos de lucro

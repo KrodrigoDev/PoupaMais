@@ -14,7 +14,7 @@ public class BancoDados extends SQLiteOpenHelper {
 
     // Nome e versão do banco de dados
     public static final String bd = "banco.bd";
-    public static final int versao = 7;
+    public static final int versao = 10;
 
     // Construtor do banco
     public BancoDados(@Nullable Context context) {
@@ -30,7 +30,7 @@ public class BancoDados extends SQLiteOpenHelper {
                 "id Integer primary key autoincrement,"
                 + "nome varchar(30) not null,"
                 + "email varchar(50) unique not null,"
-                + "senha char(32),"
+                + "senha char(32) not null,"
                 + "totallucro Real default 0.00,"
                 + "totaldespesa Real default 0.00)");
 

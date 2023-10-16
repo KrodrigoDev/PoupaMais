@@ -1,4 +1,4 @@
-package krodrigodev.com.br.poupamais.activity;
+package krodrigodev.com.br.poupamais.controller;
 
 import android.app.Activity;
 import android.os.Build;
@@ -34,7 +34,7 @@ public abstract class BaseMovimentacao extends Activity {
     protected TextInputEditText campoData, campoDescricao, campoCategoria;
     protected EditText campoValor;
     protected MovimentacaoDao movimentacaoDao;
-    protected double valorTotal;
+    private double valorTotal;
     protected UsuarioDao usuarioDao;
     protected GoogleSignInAccount account;
     protected String NOMECOLUNA, TIPOMOVIMENTO;
@@ -102,19 +102,12 @@ public abstract class BaseMovimentacao extends Activity {
 
 
     // Método para atualizar o valor total das movimentações (despesas ou lucros) do usuário.
-    protected void atualizandoValor(double valor) {
+    private void atualizandoValor(double valor) {
         usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), valor, NOMECOLUNA);
     }
 
-
-    // Método para finalizar a atividade e voltar para a janela principal.
-    protected void voltar(View view) {
-        finish();
-    }
-
-
     // Método para limpar os campos de entrada de dados.
-    protected void limpaCampo() {
+    private void limpaCampo() {
         campoData.setText("");
         campoCategoria.setText("");
         campoDescricao.setText("");

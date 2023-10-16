@@ -10,27 +10,22 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
 
     // atributos
-    private int id;
     private String nome;
     private String email;
     private String senha;
-    private double totalLucro = 0.00;
-    private double totalDespesa = 0.00;
-
-
+    private double totalLucro;
+    private double totalDespesa;
 
     // construtor
     public Usuario(String nome, String email,String senha){
         setNome(nome);
         setEmail(email);
         setSenha(senha);
+        setTotalDespesa(0.00);
+        setTotalLucro(0.00);
     }
 
     // gets e sets
-
-    public int getId() {
-        return id;
-    }
 
     public String getNome() {
         return nome;
@@ -56,24 +51,20 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTotalLucro(double totalLucro) {
+        this.totalLucro = totalLucro;
+    }
+
+    public void setTotalDespesa(double totalDespesa) {
+        this.totalDespesa = totalDespesa;
     }
 
     public double getTotalLucro() {
         return totalLucro;
     }
 
-    public void setTotalLucro(double totalLucro) {
-        this.totalLucro = totalLucro;
-    }
-
     public double getTotalDespesa() {
         return totalDespesa;
-    }
-
-    public void setTotalDespesa(double totalDespesa) {
-        this.totalDespesa = totalDespesa;
     }
 
 }

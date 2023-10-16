@@ -50,7 +50,7 @@ public class MeuPerfil extends AppCompatActivity {
 
             Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
 
-        } else if (!ValidarEmail.emailValido(email)) {
+        } else if (ValidarEmail.emailValido(email)) {
 
             Toast.makeText(this, R.string.email_invalido, Toast.LENGTH_SHORT).show();
 

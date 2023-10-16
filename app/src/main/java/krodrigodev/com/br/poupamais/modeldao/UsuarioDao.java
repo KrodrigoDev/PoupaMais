@@ -123,21 +123,6 @@ public class UsuarioDao {
 
     }
 
-    // método para inserir um usuário que fez login com o google
-    public void inserirUsuarioGoogle(String nome, String email) {
-
-        ContentValues valores = new ContentValues();
-
-        UsuarioLogado.setNomeUsuarioLocal(nome);
-        UsuarioLogado.setEmail(email);
-
-        valores.put("nome", nome);
-        valores.put("email", email);
-
-        banco.insert("usuario", null, valores);
-
-    }
-
     // método para atualizar os dados do meu usuário
     public void alterarDados(String novoNome, String novoEmail, String emailAntigo) {
 

@@ -28,11 +28,7 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-        nome = findViewById(R.id.campoNomeCadastro);
-        email = findViewById(R.id.campoEmailCadastro);
-        senha = findViewById(R.id.campoSenhaCadastro);
-
-        usuarioDao = new UsuarioDao(this);
+        inicializar();
     }
 
     // Método para salvar uma conta de usuário
@@ -50,7 +46,7 @@ public class CadastroActivity extends AppCompatActivity {
         } else {
 
             // Validar se o formato do e-mail é válido
-            if (!ValidarEmail.emailValido(emailDigitado)) {
+            if (ValidarEmail.emailValido(emailDigitado)) {
 
                 Toast.makeText(this, R.string.email_invalido, Toast.LENGTH_SHORT).show();
 
@@ -77,6 +73,15 @@ public class CadastroActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    // método resposável por inicializar todos os componentes
+    public void inicializar() {
+        nome = findViewById(R.id.campoNomeCadastro);
+        email = findViewById(R.id.campoEmailCadastro);
+        senha = findViewById(R.id.campoSenhaCadastro);
+
+        usuarioDao = new UsuarioDao(this);
     }
 
     // Método para limpar os campos de entrada de dados

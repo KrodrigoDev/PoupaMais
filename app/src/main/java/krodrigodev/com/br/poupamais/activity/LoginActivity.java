@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.controller.EncriptaMD5;
+import krodrigodev.com.br.poupamais.model.Usuario;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
 public class LoginActivity extends AppCompatActivity {
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
+
                 GoogleSignInAccount account = task.getResult(ApiException.class);
 
                 if (account != null) {
@@ -85,26 +87,26 @@ public class LoginActivity extends AppCompatActivity {
                     boolean validacaoEmail = usuarioDao.validaEmailExitentes(account.getEmail());
 
                     if (!validacaoEmail) {
-                        usuarioDao.inserirUsuarioGoogle(account.getDisplayName(), account.getEmail());
+                        Usuario usuario = new Usuario(account.getDisplayName(), account.getEmail(), account.getId());
+                        usuarioDao.inserirUsuario(usuario);
+                    } else {
+                        // usuários que fazem login com o google fornecem o id como senha
+                        usuarioDao.validaLogin(account.getEmail(), account.getId());
                     }
 
                     loginSucesso();
+
                 }
 
             } catch (ApiException erro) {
 
-                int errorCode = erro.getStatusCode();
-                String errorMessage = erro.getMessage();
-
-                if (errorCode == 7) {   // Lidar com o erro de NETWORK_ERROR aqui
-
-                    Log.e("Erro", "Erro de NETWORK_ERROR ao fazer login com o Google. Código de erro: " + errorCode + ", Mensagem: " + errorMessage);
+                if (erro.getStatusCode() == 7) {   // Lidar com o erro de NETWORK_ERROR aqui
 
                     Toast.makeText(this, R.string.sem_conexao, Toast.LENGTH_SHORT).show();
 
                 } else {  // Outros erros
 
-                    Log.e("Erro", "Erro ao fazer login com o Google. Código de erro: " + errorCode + ", Mensagem: " + errorMessage);
+                    Log.e("Erro", "Erro ao fazer login com o Google. Código de erro: " + erro.getStatusCode());
 
                     Toast.makeText(this, R.string.erro_login_google, Toast.LENGTH_SHORT).show();
 

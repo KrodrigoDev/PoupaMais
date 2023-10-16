@@ -10,6 +10,12 @@ public class UsuarioLogado {
     private static String nomeUsuarioLocal;
     private static String email;
 
+    // método para "sair" da conta
+    public static void sair(){
+        setEmail(null);
+        setNomeUsuarioLocal(null);
+    }
+
     // gets e sets do usuário local
     public static String getNomeUsuarioLocal() {
         return nomeUsuarioLocal;

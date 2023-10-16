@@ -10,6 +10,7 @@ import android.view.View;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 
 import krodrigodev.com.br.poupamais.R;
+import krodrigodev.com.br.poupamais.controller.BaseMovimentacao;
 import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
@@ -52,7 +53,7 @@ public class AdicionarDespesa extends BaseMovimentacao {
 
     // Método para finalizar a atividade e voltar para a janela principal
     public void voltarD(View view) {
-        voltar(view);
+        finish();
     }
 
     // método que vai inicializar os meus atributos de despesa

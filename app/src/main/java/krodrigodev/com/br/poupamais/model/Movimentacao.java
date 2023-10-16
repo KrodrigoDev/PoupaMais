@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class Movimentacao implements Serializable {
 
     // atributos
-    private int id;
     private LocalDate data;
     private String descricao, categoria, tipo, email_Usuario;
     private double valor;
@@ -31,10 +30,6 @@ public class Movimentacao implements Serializable {
     }
 
     // gets e sets
-
-    public int getId() {
-        return id;
-    }
 
     public LocalDate getData() {
         return data;
@@ -74,10 +69,6 @@ public class Movimentacao implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail_Usuario() {

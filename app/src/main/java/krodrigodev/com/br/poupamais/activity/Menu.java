@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -63,6 +65,17 @@ public class Menu extends AppCompatActivity {
         iconFoto = findViewById(R.id.fotoUsuario);
         nomeUsuario = findViewById(R.id.textNomeUsuario);
         emailUsuario = findViewById(R.id.textEmailUsuario);
+
+        // teste usando fotos do google (Devo retirar isso daqui)
+        if (account != null && account.getPhotoUrl() != null) {
+            String photoUrl = account.getPhotoUrl().toString();
+
+            // Use o Glide para carregar a imagem de perfil do usuário
+            Glide.with(this)
+                    .load(photoUrl)
+                    .into(iconFoto);
+        }
+
     }
 
     // Métodos de navegação (Todos as opções do menu)
@@ -72,9 +85,13 @@ public class Menu extends AppCompatActivity {
     }
 
     public void desconectarUsuario(View view) {
+
         if (account != null) {
-            gsc.signOut();
+           gsc.signOut();
         }
+
+        // limpando as váriaveis globais do usuário
+        UsuarioLogado.sair();
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
