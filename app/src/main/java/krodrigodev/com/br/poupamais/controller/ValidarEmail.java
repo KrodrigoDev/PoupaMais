@@ -2,23 +2,19 @@ package krodrigodev.com.br.poupamais.controller;
 
 public class ValidarEmail {
 
-    // Função para validar o formato do e-mail com Patterns.EMAIL_ADDRESS
-    public static boolean emailValido(CharSequence email) {
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+    public static boolean emailValido(String email) {
 
-            // Verificar se o domínio é válido
-            String[] partesEmail = email.toString().split("@"); // dividindo o email em duas partes
+        int meioEmail = email.indexOf('@');
 
-            if (partesEmail.length == 2) { // verifica se foi feita a divisão
+        if (meioEmail > 0) {
 
-                String dominio = partesEmail[1];
+            String parteDoisEmail = email.substring(meioEmail + 1, email.length() - 1);
 
-                return !dominio.contains(".") || dominio.length() <= 2; // Verificar se contém pelo menos um ponto e tem mais de 2 caracteres.
-
-            }
-
+            return parteDoisEmail.endsWith(".com");
         }
-        return true;
+
+        return false;
     }
+
 
 }

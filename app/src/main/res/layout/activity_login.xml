@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/bntAcessar"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/verdeEscuro"
@@ -18,39 +18,63 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutCampoSenha" />
 
-    <EditText
-        android:id="@+id/campoEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutCampoEmail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:autofillHints="emailAddress"
-        android:drawableStart="@drawable/email_icon_24"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:hint="@string/e_mail"
-        android:inputType="textEmailAddress"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11">
 
-    <EditText
-        android:id="@+id/campoSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:autofillHints="emailAddress"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutCampoSenha"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:autofillHints="password"
-        android:drawableStart="@drawable/cadeado_icon_lock_24"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:hint="@string/senha"
-        android:inputType="number"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutCampoEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoSenha"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:autofillHints="password"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="@string/senha"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/campoEmail" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
         android:id="@+id/imageView9"
@@ -100,15 +124,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textEsqueceuSenha" />
 
     <ImageView
-        android:id="@+id/iconEntrarGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:id="@+id/iconImpressaoDigital"
+        android:layout_width="70dp"
+        android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:contentDescription="@string/entrar_com_google"
-        android:onClick="fazerLoginGoogle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:srcCompat="@drawable/icon_google" />
+        app:srcCompat="@drawable/icon_impressao24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

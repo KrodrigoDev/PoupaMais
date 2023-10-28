@@ -4,7 +4,7 @@
 
     <!-- TEXTOS USADOS NA PARTE DO SLIDE DE BOAS VINDAS -->
     <string name="slide_informativo">Apresentação Rápida</string>
-    <string name="circulo_texto">•</string>
+    <string name="circulo_texto" translatable="false">•</string>
     <string name="organize_suas_contas_de_onde_estiver">Organize suas finanças de qualquer lugar</string>
     <string name="simples_f_cil_de_usar_e_gr_tis">Simples, fácil de usar e gratuito</string>
     <string name="nunca_mais_esque_a_de_pagar_uma_conta">Nunca mais esqueça de pagar uma conta</string>
@@ -17,6 +17,7 @@
     <string name="cadastre_se">CADASTRE-SE</string>
     <string name="planeje_sua_vida_financeira_e_saia_ndo_vermelho">Planeje sua vida financeira e saia do vermelho</string>
     <string name="crie_sua_conta_gratuitamente">Crie Sua Conta Gratuitamente</string>
+    <string name="alerta_visto" translatable="false">Ok</string>
 
     <!-- TEXTOS USADOS NA CRIAÇÃO DE CONTA E LOGIN PARTE 2-->
     <string name="crie_sua_conta_gr_tis">Crie sua conta gratuita</string>
@@ -38,6 +39,11 @@
     <string name="acessar_por_meio_de">Acessar usando</string>
     <string name="entrar_com_google">Entrar com o Google</string>
     <string name="esqueceu_a_senha">Esqueceu a senha?</string>
+    <string name="ou">OU</string>
+    <string name="titulo_alerta_criar_conta">Crie seu PIN Personalizado</string>
+    <string name="mensagem_alerta_criar_conta">Crie um PIN seguro para sua nova conta. Mantenha seu PIN em segurança e não o compartilhe com ninguém.</string>
+
+
 
     <!-- TEXTOS USADOS NA JANELA PRINCIPAL -->
     <string name="saudacao">Olá, </string>
@@ -80,15 +86,10 @@
 
     <!-- TEXTOS USADOS NO MENU -->
     <string name="desconectar">Desconectar</string>
-    <string name="alterar_idioma">Alterar Idioma</string>
     <string name="meu_perfil">Meu Perfil</string>
     <string name="email_menu">SeuEmail@exemplo.com</string>
     <string name="nome_usuario_menu">Seu Nome</string>
     <string name="foto_de_perfil">Foto de Perfil</string>
-    <string-array name="lista_idiomas">
-        <item>Inglês (EUA) - en-US</item>
-        <item>Português (Brasil) - pt-BR</item>
-    </string-array>
 
     <!-- TEXTOS USADOS NO MENU (PERFIL DO USUÁRIO) -->
     <string name="alterar_foto">Alterar Foto</string>
@@ -100,5 +101,17 @@
     <string name="opcao_sim_alerta">Sim</string>
     <string name="opcao_nao_alerta">Não</string>
     <string name="atualizacao_cancelada">Atualização cancelada</string>
+    <string name="sucesso_ao_atualizar">Dados atualizados com sucesso</string>
+
+    <!--TEXTOS USADOS PARA MENSAGENS DE ERRO INTERNO NO APP-->
+    <string name="titulo_erro">Problema Interno</string>
+    <string name="mensagem_erro">Desculpe, ocorreu um erro interno no aplicativo.</string>
+    <string name="mensagem_erro_nao">Entendido, respeitamos sua decisão</string>
+
+    <!--TEXTOS USADOS NA ACTIVITY MINHAS RECEITAS-->
+    <string name="resultados" >Resultados</string>
+    <string name="buscar">Buscar</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="minhas_receitas">Minhas Receitas</string>
 
 </resources>

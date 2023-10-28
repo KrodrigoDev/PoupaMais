@@ -5,7 +5,6 @@
 
     <!-- TEXTS USED IN WELCOME SLIDE -->
     <string name="slide_informativo">Quick Presentation</string>
-    <string name="circulo_texto">•</string>
     <string name="organize_suas_contas_de_onde_estiver">Organize your finances from anywhere</string>
     <string name="simples_f_cil_de_usar_e_gr_tis">Simple, easy to use, and free</string>
     <string name="nunca_mais_esque_a_de_pagar_uma_conta">Never forget to pay a bill again</string>
@@ -39,6 +38,10 @@
     <string name="acessar_por_meio_de">Access using</string>
     <string name="entrar_com_google">Log in with Google</string>
     <string name="esqueceu_a_senha">Forgot your password?</string>
+    <string name="ou">OR</string>
+    <string name="titulo_alerta_criar_conta">Create Your Custom PIN</string>
+    <string name="mensagem_alerta_criar_conta">Create a secure PIN for your new account. Keep your PIN safe and do not share it with anyone.</string>
+
 
     <!-- TEXTS USED IN THE MAIN WINDOW -->
     <string name="saudacao">Hello, </string>
@@ -82,15 +85,10 @@
 
     <!-- TEXTS USED IN THE MENU -->
     <string name="desconectar">Disconnect</string>
-    <string name="alterar_idioma">Change Language</string>
     <string name="meu_perfil">My Profile</string>
     <string name="email_menu">YourEmail@example.com</string>
     <string name="nome_usuario_menu">Your Name</string>
     <string name="foto_de_perfil">Profile Picture</string>
-    <string-array name="lista_idiomas">
-        <item>Inglês (EUA) - en-US</item>
-        <item>Português (Brasil) - pt-BR</item>
-    </string-array>
 
     <!-- TEXTS USED IN THE MENU (USER PROFILE) -->
     <string name="alterar_foto">Change Photo</string>
@@ -99,8 +97,21 @@
     <string name="novo_nome">New Name</string>
     <string name="titulo_alerta">Update Data</string>
     <string name="mensagem_alerta">Are you sure you want to update your information?</string>
-    <string name="opcao_sim_alerta">Yes</string>
+    <string name="opcao_sim_alerta">yes</string>
     <string name="opcao_nao_alerta">No</string>
     <string name="atualizacao_cancelada">Update canceled</string>
+    <string name="sucesso_ao_atualizar">Updated successfully</string>
+
+
+    <!--TEXT ERROR-->
+    <string name="titulo_erro">Internal Problem</string>
+    <string name="mensagem_erro">Sorry, an internal error occurred in the app.</string>
+    <string name="mensagem_erro_nao">Understood, we respect your decision</string>
+
+    <!--TEXT IN VIEW MY MOVIMET-->
+    <string name="resultados">Results</string>
+    <string name="buscar">Search</string>
+    <string name="minhas_receitas">My Incomes</string>
+
 
 </resources>

@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import krodrigodev.com.br.poupamais.R;
-import krodrigodev.com.br.poupamais.adpter.AdpterMovimentacoes;
+import krodrigodev.com.br.poupamais.controller.AdpterMovimentacoes;
+import krodrigodev.com.br.poupamais.helper.Alertas;
 import krodrigodev.com.br.poupamais.helper.UsuarioLogado;
 import krodrigodev.com.br.poupamais.model.Movimentacao;
 import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
@@ -38,118 +39,120 @@ public class PrincipalActivity extends AppCompatActivity {
     private TextView saudacaoUsuario, saldoTotal;
     private UsuarioDao usuarioDao;
     private MovimentacaoDao movimentacaoDao;
-    private RecyclerView listaMovimento;
-    private List<Movimentacao> movimentacoes = new ArrayList<>();
+    private RecyclerView recyclerMovimento;
+    private List<Movimentacao> listaMovimentacoes;
     private String mesAnoSelecionado;
     private AdpterMovimentacoes adpterMovimentacoes;
+    private RecyclerView.LayoutManager layoutManager;
+    private Alertas alertas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        // método inicializador (para os atributos)
         inicializar();
 
-        // Configurações do adaptador
-        adpterMovimentacoes = new AdpterMovimentacoes(movimentacoes, this);
+        confiCalendario();
 
-        // Configurações do RecyclerView
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        listaMovimento.setLayoutManager(layoutManager);
-        listaMovimento.setHasFixedSize(true);
-        listaMovimento.setAdapter(adpterMovimentacoes);
-
-        // Inicializando o método ao entrar na tela
-        configuracaoCalendario();
+        configRecyclerMovimento();
     }
 
-    // Método para atualizar os valores quando eu voltar para activity (preciso melhorar isso)
+    //(preciso melhorar isso obs: parte da vida últil da activity)
     @Override
     protected void onResume() {
         super.onResume();
+
         recuperarDados();
         recuperarMovimentacoes();
     }
 
-    // Método para recuperar as movimentações
     public void recuperarMovimentacoes() {
-
-        // Recupera as movimentações com base no e-mail do usuário
-        movimentacoes = movimentacaoDao.recuperarMovimentacaoMes(mesAnoSelecionado, UsuarioLogado.getEmail());
-
-        // Atualiza o adaptador com as movimentações recuperadas
-        adpterMovimentacoes.atualizarMovimentacoes(movimentacoes);
+        try {
+            listaMovimentacoes = movimentacaoDao.recuperarMovimentacaoMes(mesAnoSelecionado, UsuarioLogado.getEmail());
+            adpterMovimentacoes.atualizarMovimentacoes(listaMovimentacoes);
+        } catch (Exception erro) {
+            alertas.erroInterno();
+        }
     }
 
-    // Método para configurar o calendário
-    public void configuracaoCalendario() {
+    private void configRecyclerMovimento() {
+        recyclerMovimento.setLayoutManager(layoutManager);
+        recyclerMovimento.setHasFixedSize(true);
+        recyclerMovimento.setAdapter(adpterMovimentacoes);
+    }
 
-        // Ajustando o título dos meses
-        calendario.setTitleMonths(getResources().getStringArray(R.array.meses)); // Passando o array de meses
+    private void confiCalendario() {
 
-        // Ajustando o limite e o máximo
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM");
+
+        calendario.setTitleMonths(getResources().getStringArray(R.array.meses));
+
         calendario.state().edit()
-                .setMinimumDate(CalendarDay.from(2023, 9, 30))
+                .setMinimumDate(CalendarDay.from(2023, 10, 30))
                 .setMaximumDate(CalendarDay.from(2026, 12, 31))
                 .commit();
 
-        // Formato que vai ser usado para filtrar no banco de dados
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 
         // Mês e ano selecionados ao entrar no app
         CalendarDay dataAtual = calendario.getCurrentDate();
-        mesAnoSelecionado = sdf.format(dataAtual.getDate());
+        mesAnoSelecionado = formatoData.format(dataAtual.getDate());
 
         // Ouvinte
         calendario.setOnMonthChangedListener((widget, date) -> {
 
-            mesAnoSelecionado = sdf.format(date.getDate());
+            mesAnoSelecionado = formatoData.format(date.getDate());
 
-            // Recuperando as movimentações novamente quando o usuário clicar no calendário
             recuperarMovimentacoes();
 
         });
 
     }
 
-    // Método para recuperar o saldo total e o nome do usuário
     @SuppressLint("SetTextI18n")
-    public void recuperarDados() {
+    private void recuperarDados() {
 
-        // Atributos locais
         String COLUNALUCRO = "totallucro";
         String COLUNADESPESA = "totaldespesa";
         String nomeUsuario;
         double lucroTotal;
         double despesaTotal;
 
-        nomeUsuario = UsuarioLogado.getNomeUsuarioLocal();
-        lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
-        despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
+        try {
+            nomeUsuario = UsuarioLogado.getNomeUsuarioLocal();
+            lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
+            despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
 
+            double totalUsuario = lucroTotal - despesaTotal;
 
-        // Aplicando alterações na view com os dados obtidos
-        double totalUsuario = lucroTotal - despesaTotal;
+            DecimalFormat formato = new DecimalFormat("0.##");
 
-        DecimalFormat formato = new DecimalFormat("0.##");
+            saldoTotal.setText(getString(R.string.moeda) + " " + formato.format(totalUsuario));
 
-        saldoTotal.setText(getString(R.string.moeda) + " " + formato.format(totalUsuario));
+            saudacaoUsuario.setText(getString(R.string.saudacao) + " " + nomeUsuario);
 
-        saudacaoUsuario.setText(getString(R.string.saudacao) + " " + nomeUsuario);
+        } catch (Exception erro) {
+            alertas.erroInterno();
+        }
 
     }
 
-    // método para inicializar os meus atributos
-    public void inicializar() {
+
+    private void inicializar() {
 
         usuarioDao = new UsuarioDao(this);
         movimentacaoDao = new MovimentacaoDao(this);
+        alertas = new Alertas(this);
+
+        listaMovimentacoes = new ArrayList<>();
+        adpterMovimentacoes = new AdpterMovimentacoes(listaMovimentacoes, this);
+        layoutManager = new LinearLayoutManager(this);
 
         calendario = findViewById(R.id.calendario);
         saudacaoUsuario = findViewById(R.id.textSaudacaoUsuario);
         saldoTotal = findViewById(R.id.textValorTotal);
-        listaMovimento = findViewById(R.id.listaMovimentos);
+        recyclerMovimento = findViewById(R.id.listaMovimentos);
     }
 
     // Métodos de navegação

@@ -6,13 +6,16 @@ import androidx.annotation.RequiresApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
+
+import java.time.LocalDate;
+import java.util.zip.DataFormatException;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.controller.BaseMovimentacao;
-import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
-import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
+import krodrigodev.com.br.poupamais.helper.Alertas;
 
 /**
  * @author Kauã Rodrigo
@@ -21,51 +24,76 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AdicionarDespesa extends BaseMovimentacao {
 
+    private EditText campoData, campoDescricao, campoCategoria, campoValor;
+    private final String colunaDespesa = "totaldespesa";
+    private Alertas alertas;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_despesa);
 
-        // chamando o inicizalizador dos meus elementos de interface
         inicializar();
 
-        // Inicialização API do Google (caso o usuário faça login com o Google)
-        account = GoogleSignIn.getLastSignedInAccount(this);
-
-        // Configurando o tipo de movimentação e o nome da coluna
-        TIPOMOVIMENTO = "despesa";
-        NOMECOLUNA = "totaldespesa";
-
-
-        // Modificando o texto da data para a data atual
-        campoData.setText(dataAtual.format(formatoData));
-
-        // Recuperando a despesa do usuário antes de adicionar uma nova
-        recuperandoValor();
     }
 
-    // Método para salvar uma despesa
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void salvarDespesa(View view) {
-        salvarMovimentacao(view);
+
+        String data = campoData.getText().toString();
+        String descricao = campoDescricao.getText().toString();
+        String categoria = campoCategoria.getText().toString();
+        String valor = campoValor.getText().toString();
+
+        if (data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()) {
+            alertas.mensagemLonga(R.string.validar_campos);
+            return;
+        }
+
+        try {
+
+            String tipoMovimentacao = "despesa";
+
+            salvarMovimentacao(data, descricao, categoria, valor, colunaDespesa, tipoMovimentacao);
+
+            alertas.mensagemLonga(R.string.movimentacao_salva);
+
+            limparCampos(campoData, campoCategoria, campoDescricao, campoValor);
+
+            finish();
+
+        } catch (DataFormatException erro) {
+            alertas.mensagemLonga(R.string.data_invalida);
+        }
+
     }
 
-    // Método para finalizar a atividade e voltar para a janela principal
-    public void voltarD(View view) {
-        finish();
-    }
 
-    // método que vai inicializar os meus atributos de despesa
     public void inicializar() {
 
-        movimentacaoDao = new MovimentacaoDao(this);
-        usuarioDao = new UsuarioDao(this);
+        setMovimentacaoDao(this);
+        setUsuarioDao(this);
+
+        alertas = new Alertas(this);
 
         campoData = findViewById(R.id.campoDataDespesa);
         campoDescricao = findViewById(R.id.campoDescricaoDespesa);
         campoCategoria = findViewById(R.id.campoCategoriaDespesa);
         campoValor = findViewById(R.id.campoValorDespesa);
+        ImageView iconVoltar = findViewById(R.id.iconVoltarDespesa);
+
+        // mudar isso após o banho
+        LocalDate dataAtual = LocalDate.now();
+        campoData.setText(dataAtual.format(getFormatoData()));
+
+        voltar(iconVoltar);
+
+        try {
+            recuperandoValor(colunaDespesa);
+        } catch (Exception erro) {
+            alertas.erroInterno();
+        }
 
     }
 

@@ -49,7 +49,9 @@ public class UsuarioDao {
     // método para realizar login
     public boolean validaLogin(String email, String senha) {
 
-        try (Cursor cursor = banco.rawQuery("select email, nome from usuario where email = ? and senha = ?", new String[]{email, senha})) {
+        String senhaCriptografada = EncriptaMD5.encriptaSenha(senha);
+
+        try (Cursor cursor = banco.rawQuery("select email, nome from usuario where email = ? and senha = ?", new String[]{email, senhaCriptografada})) {
 
             if (cursor.getCount() > 0) {
 

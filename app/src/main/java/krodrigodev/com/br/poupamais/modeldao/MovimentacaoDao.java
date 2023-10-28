@@ -69,4 +69,32 @@ public class MovimentacaoDao {
         return null;
     }
 
+    public List<Movimentacao> recuperarTodasMovimentacoes(String emailUsuario) {
+
+        try (Cursor cursor = banco.rawQuery(
+                "SELECT categoria, descricao, valor, tipo FROM movimentacao WHERE email_Usuario = ?",
+                new String[]{emailUsuario})) {
+
+            List<Movimentacao> movimentacoes = new ArrayList<>();
+
+            while (cursor.moveToNext()) {
+                Movimentacao movimentacao = new Movimentacao();
+                movimentacao.setCategoria(cursor.getString(0));
+                movimentacao.setDescricao(cursor.getString(1));
+                movimentacao.setValor(cursor.getDouble(2));
+                movimentacao.setTipo(cursor.getString(3));
+                movimentacoes.add(movimentacao);
+            }
+
+            return movimentacoes;
+
+        } catch (SQLiteException erro) {
+
+            Log.d("Erro Listagem", "Erro : " + erro);
+
+        }
+
+        return null;
+    }
+
 }

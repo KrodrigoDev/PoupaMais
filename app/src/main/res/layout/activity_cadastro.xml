@@ -3,103 +3,117 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     tools:context=".activity.CadastroActivity">
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         android:text="@string/crie_sua_conta_gr_tis"
         android:textColor="@color/pretoDestaque"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/campoNomeCadastro"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-    <EditText
-        android:id="@+id/campoNomeCadastro"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:autofillHints="none"
-        android:drawableStart="@drawable/usuario_icon_24"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:gravity="start"
-        android:hint="@string/nome"
-        android:inputType="text"
-        android:isScrollContainer="false"
-        android:textColorHint="@color/cinzaEscuro"
-        app:layout_constraintBottom_toTopOf="@+id/campoEmailCadastro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <EditText
-        android:id="@+id/campoSenhaCadastro"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="30dp"
-        android:autofillHints="none"
-        android:drawableStart="@drawable/cadeado_icon_lock_24"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:gravity="start"
-        android:hint="@string/senha"
-        android:inputType="number"
-        android:textColorHint="@color/cinzaEscuro"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutCampoNome"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoEmailCadastro" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
 
-    <EditText
-        android:id="@+id/campoEmailCadastro"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:autofillHints="none"
-        android:drawableStart="@drawable/email_icon_24"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:gravity="start"
-        android:hint="@string/e_mail"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/cinzaEscuro"
-        app:layout_constraintBottom_toTopOf="@+id/campoSenhaCadastro"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoNomeCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:autofillHints="none"
+            android:drawableStart="@drawable/usuario_icon_24"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:gravity="start"
+            android:hint="@string/nome"
+            android:inputType="text"
+            android:isScrollContainer="false"
+            android:textColorHint="@color/cinzaEscuro" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutCampoEmail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoNomeCadastro" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutCampoNome">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoEmailCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:autofillHints="none"
+            android:drawableStart="@drawable/email_icon_24"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:gravity="start"
+            android:hint="@string/e_mail"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/cinzaEscuro" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutCampoSenha"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutCampoEmail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/campoSenhaCadastro"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:autofillHints="none"
+            android:drawableStart="@drawable/cadeado_icon_lock_24"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:gravity="start"
+            android:hint="@string/senha"
+            android:inputType="number"
+            android:textColorHint="@color/cinzaEscuro" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/button"
-        android:layout_width="300dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/verdeEscuro"
         android:onClick="salvarConta"
         android:text="@string/cadastrar"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/campoSenhaCadastro" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/termos_de_uso"
-        android:textColor="@color/cinzaEscuro"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutCampoSenha" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -107,12 +121,45 @@
         android:layout_height="100dp"
         android:contentDescription="@null"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40"
-        app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/icon_logo" />
+
+    <ImageView
+        android:id="@+id/iconCadastrarGoogle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/entrar_com_google"
+        android:onClick="fazerCadastroGoogle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider5"
+        app:srcCompat="@drawable/icon_google" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="30dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ou"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/divider5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

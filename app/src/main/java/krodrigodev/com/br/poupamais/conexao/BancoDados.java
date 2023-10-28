@@ -12,16 +12,14 @@ import androidx.annotation.Nullable;
  */
 public class BancoDados extends SQLiteOpenHelper {
 
-    // Nome e versão do banco de dados
-    public static final String bd = "banco.bd";
-    public static final int versao = 10;
+    public static final String nomeBanco = "banco.bd";
+    public static final int versao = 22;
 
-    // Construtor do banco
+
     public BancoDados(@Nullable Context context) {
-        super(context, bd, null, versao);
+        super(context, nomeBanco, null, versao);
     }
 
-    // Método para criar tabelas do banco de dados
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -47,7 +45,6 @@ public class BancoDados extends SQLiteOpenHelper {
 
     }
 
-    // Método para atualizar a estrutura do banco de dados
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

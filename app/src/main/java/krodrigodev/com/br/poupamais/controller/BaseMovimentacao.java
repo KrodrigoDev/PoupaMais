@@ -1,20 +1,17 @@
 package krodrigodev.com.br.poupamais.controller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.material.textfield.TextInputEditText;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.zip.DataFormatException;
 
-import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.helper.UsuarioLogado;
 import krodrigodev.com.br.poupamais.model.Movimentacao;
 import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
@@ -31,87 +28,57 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 public abstract class BaseMovimentacao extends Activity {
 
     // atributos
-    protected TextInputEditText campoData, campoDescricao, campoCategoria;
-    protected EditText campoValor;
-    protected MovimentacaoDao movimentacaoDao;
+    private MovimentacaoDao movimentacaoDao;
     private double valorTotal;
-    protected UsuarioDao usuarioDao;
-    protected GoogleSignInAccount account;
-    protected String NOMECOLUNA, TIPOMOVIMENTO;
-    protected DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    protected LocalDate dataAtual = LocalDate.now();
+    private UsuarioDao usuarioDao;
+    private final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    //Método para salvar uma movimentação financeira (despesa ou lucro).
     @RequiresApi(api = Build.VERSION_CODES.O)
-    protected void salvarMovimentacao(View view) {
+    public void salvarMovimentacao(String data, String descricao, String categoria,
+                                   String valor, String nomeColuna, String tipoMovimento)
+            throws DataFormatException {
 
-        String data = campoData.getText().toString();
-        String descricao = campoDescricao.getText().toString();
-        String categoria = campoCategoria.getText().toString();
-        String valor = campoValor.getText().toString();
+        LocalDate dataAtual = LocalDate.parse(data, this.FORMATO_DATA);
 
-        if (data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()) {
+        double valorDigitado = Double.parseDouble(valor);
 
-            Toast.makeText(this, R.string.validar_campos, Toast.LENGTH_SHORT).show();
+        Movimentacao movimentacao = new Movimentacao(dataAtual, descricao, categoria, tipoMovimento, UsuarioLogado.getEmail(), valorDigitado);
+        this.movimentacaoDao.salvarMovimentacao(movimentacao);
 
-        } else if (data.length() != 10) {
-
-            Toast.makeText(this, R.string.data_invalida, Toast.LENGTH_SHORT).show();
-
-        } else {
-
-            try {
-
-                dataAtual = LocalDate.parse(data, formatoData);
-                double valorDigitado = Double.parseDouble(valor);
-
-                // Criando a movimentação
-                Movimentacao movimentacao = new Movimentacao(dataAtual, descricao, categoria, TIPOMOVIMENTO, UsuarioLogado.getEmail(), valorDigitado);
-
-                // Realizando a soma das despesas antes de salvar
-                double valorAtualizado = valorDigitado + valorTotal;
-
-                // Atualizando o total de despesas ou lucros na tabela do usuário
-                atualizandoValor(valorAtualizado);
-
-                // Salvando a movimentação
-                movimentacaoDao.salvarMovimentacao(movimentacao);
-
-                // Limpando os campos após os dados serem salvos
-                limpaCampo();
-
-                // Exibindo mensagem de confirmação para o usuário
-                Toast.makeText(this, R.string.movimentacao_salva, Toast.LENGTH_SHORT).show();
-
-                // Finalizando a atividade e voltando para a janela principal
-                finish();
-
-            } catch (Exception erro) {
-                Toast.makeText(this, R.string.data_invalida, Toast.LENGTH_SHORT).show();
-            }
-
-        }
+        double valorAtualizado = valorDigitado + valorTotal;
+        atualizarValorColuna(valorAtualizado, nomeColuna);
 
     }
 
-
-    // Método para recuperar o valor total das movimentações (despesas ou lucros) do usuário.
-    protected void recuperandoValor() {
-        valorTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), NOMECOLUNA);
+    public void recuperandoValor(String nomeColuna) throws Exception {
+        valorTotal = this.usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), nomeColuna);
     }
 
-
-    // Método para atualizar o valor total das movimentações (despesas ou lucros) do usuário.
-    private void atualizandoValor(double valor) {
-        usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), valor, NOMECOLUNA);
+    private void atualizarValorColuna(double valor, String nomeColuna) {
+        this.usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), valor, nomeColuna);
     }
 
-    // Método para limpar os campos de entrada de dados.
-    private void limpaCampo() {
-        campoData.setText("");
-        campoCategoria.setText("");
-        campoDescricao.setText("");
-        campoValor.setText("");
+    public void limparCampos(EditText data, EditText categoria, EditText descricao, EditText valor) {
+        data.setText("");
+        categoria.setText("");
+        descricao.setText("");
+        valor.setText("");
+    }
+
+    public void voltar(ImageView iconVoltar) {
+        iconVoltar.setOnClickListener(v -> finish());
+    }
+
+    public DateTimeFormatter getFormatoData() {
+        return FORMATO_DATA;
+    }
+
+    public void setUsuarioDao(Context context) {
+        this.usuarioDao = new UsuarioDao(context);
+    }
+
+    public void setMovimentacaoDao(Context context) {
+        this.movimentacaoDao = new MovimentacaoDao(context);
     }
 
 }

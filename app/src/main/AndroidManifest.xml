@@ -4,7 +4,6 @@
     <!-- Pedido permissão para usar a internet (Login com o gooogle) -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -17,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PoupaMais"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.MinhasMovimetacoes"
+            android:exported="false"
+            android:theme="@style/Theme.PoupaMais" />
         <activity
             android:name=".activity.EsqueceuSenha"
             android:exported="false" />

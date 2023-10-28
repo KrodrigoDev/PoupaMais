@@ -5,13 +5,15 @@ import androidx.annotation.RequiresApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import java.time.LocalDate;
+import java.util.zip.DataFormatException;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.controller.BaseMovimentacao;
-import krodrigodev.com.br.poupamais.modeldao.MovimentacaoDao;
-import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
+import krodrigodev.com.br.poupamais.helper.Alertas;
 
 /**
  * @author Kauã Rodrigo
@@ -20,49 +22,76 @@ import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AdicionarLucro extends BaseMovimentacao {
 
+    private EditText campoData, campoDescricao, campoCategoria, campoValor;
+    private final String colunaLucro = "totallucro";
+    private Alertas alertas;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_lucro);
 
-        // chamando o inicizalizador dos meus elementos de interface
         inicializar();
-
-        // Inicialização API do Google (caso o usuário faça login com o Google)
-        account = GoogleSignIn.getLastSignedInAccount(this);
-
-        // Modificando o texto da data para a data atual
-        campoData.setText(dataAtual.format(formatoData));
-
-        // Configurando o tipo de movimentação e o nome da coluna
-        TIPOMOVIMENTO = "lucro";
-        NOMECOLUNA = "totallucro";
-
-        // Fazendo o lucro ser recuperado antes que o usuário digite um novo valor
-        recuperandoValor();
     }
 
-    // Método para salvar o lucro
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void salvarLucro(View view) {
-        salvarMovimentacao(view);
+
+        String data = campoData.getText().toString();
+        String descricao = campoDescricao.getText().toString();
+        String categoria = campoCategoria.getText().toString();
+        String valor = campoValor.getText().toString();
+
+        if (data.isEmpty() || descricao.isEmpty() || categoria.isEmpty() || valor.isEmpty()) {
+            alertas.mensagemLonga(R.string.validar_campos);
+            return;
+        }
+
+        try {
+
+            String tipoMovimentacao = "lucro";
+
+            salvarMovimentacao(data, descricao, categoria, valor, colunaLucro, tipoMovimentacao);
+
+            alertas.mensagemLonga(R.string.movimentacao_salva);
+
+            limparCampos(campoData, campoCategoria, campoDescricao, campoValor);
+
+            finish();
+
+        } catch (DataFormatException erro) {
+            alertas.mensagemLonga(R.string.data_invalida);
+        }
+
     }
 
-    // Método para finalizar a activity e voltar para a principal
-    public void voltarL(View view) {
-        finish();
-    }
 
-    // método que vai inicializar os meus atributos de lucro
-    public void inicializar() {
-        movimentacaoDao = new MovimentacaoDao(this);
-        usuarioDao = new UsuarioDao(this);
+    private void inicializar() {
+
+        setMovimentacaoDao(this);
+        setUsuarioDao(this);
+
+        alertas = new Alertas(this);
 
         campoData = findViewById(R.id.campoDataLucro);
         campoDescricao = findViewById(R.id.campoDescricaoLucro);
         campoCategoria = findViewById(R.id.campoCategoriaLucro);
         campoValor = findViewById(R.id.campoValorLucro);
+        ImageView iconVoltar = findViewById(R.id.iconVoltarLucro);
+
+        // mudar isso após o banho
+        LocalDate dataAtual = LocalDate.now();
+        campoData.setText(dataAtual.format(getFormatoData()));
+
+        voltar(iconVoltar);
+
+        try {
+            recuperandoValor(colunaLucro);
+        } catch (Exception erro) {
+            alertas.erroInterno();
+        }
+
     }
 
 }
