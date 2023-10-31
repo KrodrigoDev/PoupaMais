@@ -41,6 +41,11 @@
     <string name="ou">OR</string>
     <string name="titulo_alerta_criar_conta">Create Your Custom PIN</string>
     <string name="mensagem_alerta_criar_conta">Create a secure PIN for your new account. Keep your PIN safe and do not share it with anyone.</string>
+    <string name="biometric_title">Authentication Require</string>
+    <string name="biometric_subtitle">important authentication </string>
+    <string name="biometric_desc">Please authenticate to be able to view your account information</string>
+    <string name="sucesso_biometria">Successfully authenticated</string>
+    <string name="falha_biometria">Authentication failed</string>
 
 
     <!-- TEXTS USED IN THE MAIN WINDOW -->
@@ -66,6 +71,14 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+    <string name="excluir_movimentacao_title">Delete Account Transaction</string>
+    <string name="excluir_movimentacao_message">Are you sure you want to delete this account transaction ?</string>
+    <string name="excluir_movimentacao_confirm">Confirm</string>
+    <string name="excluir_movimentacao_cancel">Cancel</string>
+    <string name="exluir_movimentacao_cacelado_alerta">Cancelled</string>
+    <string name="movimentacao_apagada_com_sucesso">Movement successfully deleted</string>
+
+
 
     <!-- TEXTS USED IN PROFIT AND EXPENSE WINDOW -->
     <string name="voltar">Back</string>
@@ -112,6 +125,10 @@
     <string name="resultados">Results</string>
     <string name="buscar">Search</string>
     <string name="minhas_receitas">My Incomes</string>
+
+    <!-- TEXTS USED THROUGHOUT THE APP (AIRPLANE MODE) -->
+    <string name="modo_aviao_ON">Airplane mode enabled</string>
+    <string name="modo_aviao_OFF">Airplane mode disabled</string>
 
 
 </resources>

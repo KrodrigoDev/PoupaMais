@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 public class BancoDados extends SQLiteOpenHelper {
 
     public static final String nomeBanco = "banco.bd";
-    public static final int versao = 22;
+    public static final int versao = 23;
 
 
     public BancoDados(@Nullable Context context) {

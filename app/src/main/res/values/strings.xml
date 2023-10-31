@@ -42,7 +42,11 @@
     <string name="ou">OU</string>
     <string name="titulo_alerta_criar_conta">Crie seu PIN Personalizado</string>
     <string name="mensagem_alerta_criar_conta">Crie um PIN seguro para sua nova conta. Mantenha seu PIN em segurança e não o compartilhe com ninguém.</string>
-
+    <string name="biometric_title">Autenticação necessária</string>
+    <string name="biometric_subtitle">Autenticação importante </string>
+    <string name="biometric_desc">Por favor, Autentique-se para ser capaz de ver as informações da sua conta</string>
+    <string name="sucesso_biometria">Autenticado com sucesso</string>
+    <string name="falha_biometria">Falha na autenticação</string>
 
 
     <!-- TEXTOS USADOS NA JANELA PRINCIPAL -->
@@ -68,6 +72,14 @@
         <item>Novembro</item>
         <item>Dezembro</item>
     </string-array>
+    <string name="excluir_movimentacao_title">Excluir Movimentação da Conta</string>
+    <string name="excluir_movimentacao_message">Você tem certeza que deseja realmente excluir essa movimentação da conta ?</string>
+    <string name="excluir_movimentacao_confirm">Confirmar</string>
+    <string name="excluir_movimentacao_cancel">Cancelar</string>
+    <string name="exluir_movimentacao_cacelado_alerta">Cancelado</string>
+    <string name="movimentacao_apagada_com_sucesso">Movimentação apagada com sucesso</string>
+
+
 
     <!-- TEXTOS USADOS NA JANELA DE LUCROS E DESPESAS -->
     <string name="voltar">Voltar</string>
@@ -109,9 +121,13 @@
     <string name="mensagem_erro_nao">Entendido, respeitamos sua decisão</string>
 
     <!--TEXTOS USADOS NA ACTIVITY MINHAS RECEITAS-->
-    <string name="resultados" >Resultados</string>
+    <string name="resultados">Resultados</string>
     <string name="buscar">Buscar</string>
     <string name="_0" translatable="false">0</string>
     <string name="minhas_receitas">Minhas Receitas</string>
+
+    <!--TEXTOS USADOS NO APP INTEIRO(MODO AVIÃO)-->
+    <string name="modo_aviao_ON">Modo avião ativado</string>
+    <string name="modo_aviao_OFF">Modo avião desativado</string>
 
 </resources>

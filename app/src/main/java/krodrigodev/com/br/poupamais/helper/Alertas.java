@@ -24,7 +24,7 @@ public class Alertas extends Activity {
         Toast.makeText(context, idMensagem, Toast.LENGTH_SHORT).show();
     }
 
-    public void mensagemAlerta(int idMensagem, int idTitulo) {
+    public void alertaCadastro(int idMensagem, int idTitulo) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 

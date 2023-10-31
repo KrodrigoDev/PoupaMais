@@ -4,6 +4,7 @@ package krodrigodev.com.br.poupamais.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 
 import krodrigodev.com.br.poupamais.R;
 import krodrigodev.com.br.poupamais.helper.Alertas;
+import krodrigodev.com.br.poupamais.helper.ReceptorModoAviao;
 import krodrigodev.com.br.poupamais.modeldao.UsuarioDao;
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         inicializar();
-
     }
 
     public void acessar(View view) {
@@ -69,6 +70,9 @@ public class LoginActivity extends AppCompatActivity {
 
         usuarioDao = new UsuarioDao(this);
         alertas = new Alertas(this);
+
+
+
     }
 
 

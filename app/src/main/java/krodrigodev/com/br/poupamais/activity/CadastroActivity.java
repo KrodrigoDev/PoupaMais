@@ -94,7 +94,7 @@ public class CadastroActivity extends AppCompatActivity {
                     nome.setText(account.getDisplayName());
                     email.setText(account.getEmail());
 
-                    alertas.mensagemAlerta(R.string.titulo_alerta_criar_conta, R.string.mensagem_alerta_criar_conta);
+                    alertas.alertaCadastro(R.string.titulo_alerta_criar_conta, R.string.mensagem_alerta_criar_conta);
                 }
 
             } catch (ApiException erro) {

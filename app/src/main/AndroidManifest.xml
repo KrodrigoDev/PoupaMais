@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!--Permissão para usar a impressão digital-->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <!-- Permissão para acessar o Modo Avião -->
+    <uses-permission android:name="android.permission.AIRPLANE_MODE" />
 
     <application
         android:allowBackup="true"
@@ -72,6 +76,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".helper.ReceptorModoAviao"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

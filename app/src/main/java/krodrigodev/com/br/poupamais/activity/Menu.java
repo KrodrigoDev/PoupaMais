@@ -1,9 +1,16 @@
 package krodrigodev.com.br.poupamais.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,7 +20,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 
+import java.util.concurrent.Executor;
+
 import krodrigodev.com.br.poupamais.R;
+import krodrigodev.com.br.poupamais.helper.Alertas;
 import krodrigodev.com.br.poupamais.helper.UsuarioLogado;
 
 /**
@@ -27,6 +37,8 @@ public class Menu extends AppCompatActivity {
     private GoogleSignInAccount account;
     private GoogleSignInClient gsc;
     private GoogleSignInOptions gso;
+    private Alertas alertas;
+    private static final int REQUEST_CODE = 101010; // biométria
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,8 @@ public class Menu extends AppCompatActivity {
     public void inicializar() {
         nomeUsuario = findViewById(R.id.textNomeUsuario);
         emailUsuario = findViewById(R.id.textEmailUsuario);
+
+        alertas = new Alertas(this);
 
         // api da google
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -86,13 +100,91 @@ public class Menu extends AppCompatActivity {
     }
 
     public void meuPerfil(View view) {
-        Intent intent = new Intent(Menu.this, MeuPerfil.class);
-        startActivity(intent);
+        compatibilidadeDispotivo();
     }
 
     public void minhasReceitas(View view) {
         Intent intent = new Intent(Menu.this, MinhasMovimetacoes.class);
         startActivity(intent);
+    }
+
+    public void compatibilidadeDispotivo() {
+
+        BiometricManager controlador = BiometricManager.from(this);
+
+        switch (controlador.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK | BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                Log.d("Poupa+ Biométria", "O usuário pode autenticar com êxito");
+                break;
+
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                Log.d("Poupa+ Biométria", "O usuário não pode autenticar porque não há hardware adequado");
+                break;
+
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                Log.d("Poupa+ Biométria", "O usuário não pode autenticar porque o hardware não está disponível");
+                break;
+
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                Log.d("Poupa+ Biométria", "O usuário não pode autenticar porque nenhuma credencial biométrica ou de dispositivo está registrada");
+
+                final Intent adicionarBiometria = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
+                adicionarBiometria.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                        BiometricManager.Authenticators.BIOMETRIC_WEAK | BiometricManager.Authenticators.BIOMETRIC_STRONG);
+                startActivityForResult(adicionarBiometria, REQUEST_CODE);
+
+                break;
+
+            case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:
+                Log.d("Poupa+ Biométria", "O usuário não pode se autenticar porque uma vulnerabilidade de segurança foi descoberta com um ou mais sensores de hardware");
+                break;
+
+            case BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED:
+                Log.d("Poupa+ Biométria", "O usuário não pode autenticar porque as opções especificadas são incompatíveis com a versão atual do Android");
+                break;
+
+            case BiometricManager.BIOMETRIC_STATUS_UNKNOWN:
+                Log.d("Poupa+ Biométria", "Não é possível determinar se o usuário pode autenticar");
+                break;
+
+        }
+
+
+        Executor executor = ContextCompat.getMainExecutor(this);
+
+        BiometricPrompt biometricPrompt = new BiometricPrompt((FragmentActivity) this, executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString); // erro de hardware
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result); // sucesso
+
+                Intent intent = new Intent(Menu.this, MeuPerfil.class);
+                startActivity(intent);
+                alertas.mensagemLonga(R.string.sucesso_biometria);
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed(); // rejeitado
+                alertas.mensagemLonga(R.string.falha_biometria);
+            }
+        });
+
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle(getString(R.string.biometric_title))
+                .setSubtitle(getString(R.string.biometric_subtitle))
+                .setDescription(getString(R.string.biometric_desc))
+                .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_WEAK | BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+                .setConfirmationRequired(false)
+                .build();
+
+        biometricPrompt.authenticate(promptInfo);
+
     }
 
 }

@@ -44,7 +44,7 @@ public class MovimentacaoDao {
     public List<Movimentacao> recuperarMovimentacaoMes(String dataCalendario, String emailUsuario) {
 
         try (Cursor cursor = banco.rawQuery(
-                "SELECT categoria, descricao, valor, tipo FROM movimentacao WHERE strftime('%Y-%m', data) = ? AND email_Usuario = ?",
+                "SELECT categoria, descricao, valor, tipo, id FROM movimentacao WHERE strftime('%Y-%m', data) = ? AND email_Usuario = ?",
                 new String[]{dataCalendario, emailUsuario})) {
 
             List<Movimentacao> movimentacoes = new ArrayList<>();
@@ -55,6 +55,7 @@ public class MovimentacaoDao {
                 movimentacao.setDescricao(cursor.getString(1));
                 movimentacao.setValor(cursor.getDouble(2));
                 movimentacao.setTipo(cursor.getString(3));
+                movimentacao.setId(cursor.getInt(4));
                 movimentacoes.add(movimentacao);
             }
 
@@ -72,7 +73,7 @@ public class MovimentacaoDao {
     public List<Movimentacao> recuperarTodasMovimentacoes(String emailUsuario) {
 
         try (Cursor cursor = banco.rawQuery(
-                "SELECT categoria, descricao, valor, tipo FROM movimentacao WHERE email_Usuario = ?",
+                "SELECT categoria, descricao, valor, tipo, id FROM movimentacao WHERE email_Usuario = ?",
                 new String[]{emailUsuario})) {
 
             List<Movimentacao> movimentacoes = new ArrayList<>();
@@ -83,6 +84,7 @@ public class MovimentacaoDao {
                 movimentacao.setDescricao(cursor.getString(1));
                 movimentacao.setValor(cursor.getDouble(2));
                 movimentacao.setTipo(cursor.getString(3));
+                movimentacao.setId(cursor.getInt(4));
                 movimentacoes.add(movimentacao);
             }
 
@@ -96,5 +98,20 @@ public class MovimentacaoDao {
 
         return null;
     }
+
+    public void excluirMovimentacao(int idMovimentacao) {
+        try {
+
+            String whereClause = "id = ?";
+
+            String[] whereArgs = {String.valueOf(idMovimentacao)};
+
+            banco.delete("movimentacao", whereClause, whereArgs);
+
+        } catch (SQLiteException erro) {
+            Log.d("Erro Exclusão", "Erro : " + erro);
+        }
+    }
+
 
 }

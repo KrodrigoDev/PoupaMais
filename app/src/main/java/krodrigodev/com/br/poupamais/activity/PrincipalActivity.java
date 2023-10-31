@@ -1,14 +1,17 @@
 package krodrigodev.com.br.poupamais.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,10 +44,11 @@ public class PrincipalActivity extends AppCompatActivity {
     private MovimentacaoDao movimentacaoDao;
     private RecyclerView recyclerMovimento;
     private List<Movimentacao> listaMovimentacoes;
-    private String mesAnoSelecionado;
+    private String mesAnoSelecionado, COLUNALUCRO, COLUNADESPESA;
     private AdpterMovimentacoes adpterMovimentacoes;
     private RecyclerView.LayoutManager layoutManager;
     private Alertas alertas;
+    private Movimentacao movimentacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,14 +117,13 @@ public class PrincipalActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void recuperarDados() {
 
-        String COLUNALUCRO = "totallucro";
-        String COLUNADESPESA = "totaldespesa";
         String nomeUsuario;
         double lucroTotal;
         double despesaTotal;
 
         try {
             nomeUsuario = UsuarioLogado.getNomeUsuarioLocal();
+
             lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
             despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
 
@@ -132,6 +135,84 @@ public class PrincipalActivity extends AppCompatActivity {
 
             saudacaoUsuario.setText(getString(R.string.saudacao) + " " + nomeUsuario);
 
+        } catch (Exception erro) {
+            alertas.erroInterno();
+        }
+
+    }
+
+    private void deslizarMovimentacao() {
+        ItemTouchHelper.Callback itemClicado = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+
+                int dragFlags = ItemTouchHelper.ACTION_STATE_IDLE;
+                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+
+                return makeMovementFlags(dragFlags, swipeFlags);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false; //não utilizado
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                excluirMovimentacao(viewHolder);
+            }
+        };
+
+        new ItemTouchHelper(itemClicado).attachToRecyclerView(recyclerMovimento);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void excluirMovimentacao(RecyclerView.ViewHolder viewHolder) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(R.string.excluir_movimentacao_title);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setMessage(R.string.excluir_movimentacao_message);
+
+        builder.setPositiveButton(R.string.excluir_movimentacao_confirm, (dialog, which) -> {
+
+            int posicao = viewHolder.getAdapterPosition();
+
+            movimentacao = listaMovimentacoes.get(posicao);
+
+            movimentacaoDao.excluirMovimentacao(movimentacao.getId());
+
+            alertas.mensagemLonga(R.string.movimentacao_apagada_com_sucesso);
+            atualizarSaldo();
+            recuperarDados(); // verificar isso mais tarde
+        });
+
+        builder.setNegativeButton(R.string.excluir_movimentacao_cancel, (dialog, which) -> {
+            alertas.mensagemLonga(R.string.exluir_movimentacao_cacelado_alerta);
+            adpterMovimentacoes.notifyDataSetChanged();
+        });
+
+        builder.setCancelable(false);
+
+        builder.create().show();
+    }
+
+
+    public void atualizarSaldo() {
+
+        double novoSaldo, despesaTotal, lucroTotal;
+
+        try {
+            lucroTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNALUCRO);
+            despesaTotal = usuarioDao.recuperarTotal(UsuarioLogado.getEmail(), COLUNADESPESA);
+
+            if (movimentacao.getTipo().equals("despesa")) {
+                novoSaldo = despesaTotal - movimentacao.getValor();
+                usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), novoSaldo, COLUNADESPESA);
+            } else {
+                novoSaldo = lucroTotal - movimentacao.getValor();
+                usuarioDao.alterarDespesaTotal(UsuarioLogado.getEmail(), novoSaldo, COLUNALUCRO);
+            }
         } catch (Exception erro) {
             alertas.erroInterno();
         }
@@ -153,6 +234,10 @@ public class PrincipalActivity extends AppCompatActivity {
         saudacaoUsuario = findViewById(R.id.textSaudacaoUsuario);
         saldoTotal = findViewById(R.id.textValorTotal);
         recyclerMovimento = findViewById(R.id.listaMovimentos);
+
+        COLUNALUCRO = "totallucro";
+        COLUNADESPESA = "totaldespesa";
+        deslizarMovimentacao();
     }
 
     // Métodos de navegação

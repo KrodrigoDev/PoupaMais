@@ -14,6 +14,7 @@ public class Movimentacao implements Serializable {
     private LocalDate data;
     private String descricao, categoria, tipo, email_Usuario;
     private double valor;
+    private int id;
 
     // construtor
     public Movimentacao() {
@@ -77,5 +78,13 @@ public class Movimentacao implements Serializable {
 
     public void setEmail_Usuario(String email_Usuario) {
         this.email_Usuario = email_Usuario;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

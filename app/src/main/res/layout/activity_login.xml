@@ -34,7 +34,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/campoEmail"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="40dp"
             android:autofillHints="emailAddress"
             android:drawablePadding="5dp"
@@ -62,7 +62,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/campoSenha"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_marginTop="30dp"
             android:autofillHints="password"
             android:drawablePadding="5dp"
@@ -91,7 +91,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="@string/acesse_sua_conta"
         android:textColor="@color/pretoDestaque"
         android:textSize="24sp"
@@ -105,33 +105,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/esqueceu_a_senha"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/bntAcessar"
         app:layout_constraintTop_toBottomOf="@+id/bntAcessar" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/acessar_por_meio_de"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEsqueceuSenha" />
-
-    <ImageView
-        android:id="@+id/iconImpressaoDigital"
-        android:layout_width="70dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="@string/entrar_com_google"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:srcCompat="@drawable/icon_impressao24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
